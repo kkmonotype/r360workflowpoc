@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
     Ticket_Type: {
       type: Sequelize.STRING
     },
+    Ticket_Role: {
+      type: Sequelize.STRING
+    },
     Ticket_Priority: {
       type: Sequelize.STRING
     },
