@@ -45,12 +45,24 @@ PSDRepository.prototype.getPSDDetails = async function (R360_PSD_ID) {
     return instances ? instances.map(instance => instance.toJSON()) : [];
 }
 
-PSDRepository.prototype.getPSDList = async function (status='') {
+PSDRepository.prototype.getPSDList = async function (status = '') {
     if ('' !== status) {
-        const instances = await PSD.findAll({ where: { Ticket_Status: status } });
+        const instances = await PSD.findAll(
+            {
+                where: { Ticket_Status: status },
+                order: [
+                    ['R360_PSD_ID', 'DESC'],
+                ]
+            });
         return instances ? instances.map(instance => instance.toJSON()) : [];
     } else {
-        const instances = await PSD.findAll();
+        const instances = await PSD.findAll(
+            {
+                order: [
+                    ['R360_PSD_ID', 'DESC'],
+                ]
+            }
+        );
         return instances ? instances.map(instance => instance.toJSON()) : [];
     }
 }
@@ -77,14 +89,20 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
         R360_PSD_ID
     } = psdInput;
 
+    const psdDetails = await this.getPSDDetails(R360_PSD_ID);
+
+    if(psdDetails[0].Workflow_Token === '') {
+        throw new Error(`Workflow token is empty for ticket: ${R360_PSD_ID}`);
+    }
+
     if ('' !== Ticket_Status) {
         if ('open' === Ticket_Status) {
             await PSD.update(
                 { Ticket_Role: 'Researcher', Ticket_Status: 'open' },
                 { where: { R360_PSD_ID: R360_PSD_ID } }
             );
-        } 
-        
+        }
+
         if ('' !== Employee_FK) {
             await PSD.update({ Ticket_Status: Ticket_Status, Employee_FK: Employee_FK }, {
                 where: {
@@ -94,7 +112,6 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
         }
 
         //Get psd details
-        const psdDetails = await this.getPSDDetails(R360_PSD_ID);
         const callbackQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo";
 
         // Send message to callback queue
@@ -117,6 +134,14 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
     //     });
     // }
 
+    return {};
+}
+
+PSDRepository.prototype.updatePSDWorkflowFlag = async function (R360_PSD_ID, Workflow_Flag) {
+    await PSD.update(
+        { Workflow_Flag: Workflow_Flag },
+        { where: { R360_PSD_ID: R360_PSD_ID } }
+    );
     return {};
 }
 

@@ -27,19 +27,29 @@ app.get('/api/psd/:psdId', async (req, res) => {
 });
 
 app.put('/api/psd/:psdId', async (req, res) => {
-    const psdInput = {
-        Ticket_Status: req.body.Ticket_Status ?? '',
-        Ticket_Role: req.body.Ticket_Role ?? '',
-        Employee_FK: req.body.Employee_FK ?? '',
-        R360_PSD_ID: req.params.psdId ?? ''
-    }
+    try {
+        const psdInput = {
+            Ticket_Status: req.body.Ticket_Status ?? '',
+            Ticket_Role: req.body.Ticket_Role ?? '',
+            Employee_FK: req.body.Employee_FK ?? '',
+            R360_PSD_ID: req.params.psdId ?? ''
+        }
 
-    const psdDetails = await psdRepository.updatePSD(psdInput);
-    res.send(psdDetails);
+        const psdDetails = await psdRepository.updatePSD(psdInput);
+        res.send(psdDetails);
+
+    } catch (error) {
+        res.send(
+            {
+                message: error.message
+            }
+        );
+        console.log(error.message);
+    }
 });
 
 
-cron.schedule('5 * * * * *', () => {
+cron.schedule('* * * * * *', () => {
     psdScheduler.pollMessage();
 });
 

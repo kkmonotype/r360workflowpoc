@@ -73,6 +73,9 @@ ProcessPSDDetails.prototype.pollMessage = async () => {
             }), callbackQueue);
 
             if (send_result) {
+                // Update Workflow_Token in PSD table to empty
+                // const R360_PSD_ID = psdDetails.R360_PSD_ID;
+                // await psdRepository.updatePSDWorkflowToken(R360_PSD_ID, '');
                 console.log("Message sent successfully");
             }
         }

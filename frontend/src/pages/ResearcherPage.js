@@ -1,6 +1,7 @@
 // Create react component to display list of tasks
 import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
+import AlertComponent from "../components/AlertComponent";
 import logo from '../logo.svg';
 
 
@@ -10,7 +11,7 @@ function ResearcherPage() {
 
     useEffect(() => {
         const getPSDs = async () => {
-            const response = await fetch(`http://localhost:4000/api/psds?status=open`);
+            const response = await fetch(`http://localhost:4000/api/psds`);
             const data = await response.json();
 
             setTickets(data);
@@ -27,12 +28,14 @@ function ResearcherPage() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 Ticket_Status: status,
                 Employee_FK: employeeId
             }),
         });
         const data = await response.json();
+
+        console.log(data);
         setMessage(data.message);
     };
 
@@ -41,6 +44,11 @@ function ResearcherPage() {
             <img src={logo} alt="logo" className="App-logo" />
 
             <h2>PSD List</h2>
+
+            {message &&
+                <AlertComponent message={message} severity="success" />
+            }
+
             {tickets.map((ticket) => (
                 <div className="task" key={ticket.R360_PSD_ID}>
                     <h4>Name: {ticket.R360_PSD_ID}</h4>
@@ -79,7 +87,6 @@ function ResearcherPage() {
                     <hr />
                 </div>
             ))}
-            <p>{message}</p>
         </div>
     );
 }
