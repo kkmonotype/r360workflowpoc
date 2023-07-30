@@ -116,6 +116,7 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
             taskToken: psdDetails[0].Workflow_Token,
             R360_PSD_ID: R360_PSD_ID,
             status: 'approved',
+            escalation: false,
         }), callbackQueue);
 
         if (send_result) {
