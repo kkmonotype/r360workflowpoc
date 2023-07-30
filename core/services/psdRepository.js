@@ -45,9 +45,14 @@ PSDRepository.prototype.getPSDDetails = async function (R360_PSD_ID) {
     return instances ? instances.map(instance => instance.toJSON()) : [];
 }
 
-PSDRepository.prototype.getPSDList = async function () {
-    const instances = await PSD.findAll();
-    return instances ? instances.map(instance => instance.toJSON()) : [];
+PSDRepository.prototype.getPSDList = async function (status='') {
+    if ('' !== status) {
+        const instances = await PSD.findAll({ where: { Ticket_Status: status } });
+        return instances ? instances.map(instance => instance.toJSON()) : [];
+    } else {
+        const instances = await PSD.findAll();
+        return instances ? instances.map(instance => instance.toJSON()) : [];
+    }
 }
 
 PSDRepository.prototype.getCohortLead = async function (Cohort_FK) {

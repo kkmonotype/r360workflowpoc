@@ -18,7 +18,7 @@ const HomePage = () => {
                     <Typography variant="h6">
                         <img src={logo} alt="logo" />
                     </Typography>
-                    <Button color="inherit" component={Link} to="/psds">Cohort Lead</Button>
+                    <Button color="inherit" component={Link} to="/lead">Cohort Lead</Button>
                     <Button color="inherit" component={Link} to="/researcher">Researcher</Button>
                 </Toolbar>
             </AppBar>

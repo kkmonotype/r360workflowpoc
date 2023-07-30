@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 import logo from '../logo.svg';
 
 
-function LeadPage() {
+function ResearcherPage() {
     const [tickets, setTickets] = useState([]);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
         const getPSDs = async () => {
-            const response = await fetch(`http://localhost:4000/api/psds`);
+            const response = await fetch(`http://localhost:4000/api/psds?status=open`);
             const data = await response.json();
 
             setTickets(data);
@@ -20,13 +20,17 @@ function LeadPage() {
 
     const handleAccept = async (psdId, status) => {
         console.log(psdId);
+        const employeeId = '0052R000009xw09QAA';
         // Upadte task status to in progress
         const response = await fetch(`http://localhost:4000/api/psd/${psdId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ Ticket_Status: status }),
+            body: JSON.stringify({ 
+                Ticket_Status: status,
+                Employee_FK: employeeId
+            }),
         });
         const data = await response.json();
         setMessage(data.message);
@@ -45,12 +49,30 @@ function LeadPage() {
 
                     <p>Ticket Status: {ticket.Ticket_Status}</p>
 
-                    {!ticket.Ticket_Status && (
+                    {'open' === ticket.Ticket_Status && (
                         <div>
                             <Button variant="contained"
-                                onClick={() => handleAccept(ticket.R360_PSD_ID, 'open')}
+                                onClick={() => handleAccept(ticket.R360_PSD_ID, 'todo')}
                             >
-                                Assign To Researcher
+                                Assign To Yourself
+                            </Button>
+                        </div>
+                    )}
+                    {'todo' === ticket.Ticket_Status && (
+                        <div>
+                            <Button variant="contained"
+                                onClick={() => handleAccept(ticket.R360_PSD_ID, 'in-progress')}
+                            >
+                                Mark In-Progress
+                            </Button>
+                        </div>
+                    )}
+                    {'in-progress' === ticket.Ticket_Status && (
+                        <div>
+                            <Button variant="contained"
+                                onClick={() => handleAccept(ticket.R360_PSD_ID, 'completed')}
+                            >
+                                Complete
                             </Button>
                         </div>
                     )}
@@ -62,4 +84,4 @@ function LeadPage() {
     );
 }
 
-export default LeadPage;
+export default ResearcherPage;

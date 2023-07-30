@@ -13,10 +13,12 @@ const port = 4000
 app.use(cors());
 
 app.get('/api/psds', async (req, res) => {
-    console.log('get psds');
-    const psdList = await psdRepository.getPSDList();
+    // get from query params
+    const status = req.query.status;
+    const psdList = await psdRepository.getPSDList(status);
     res.send(psdList)
 });
+
 
 app.get('/api/psd/:psdId', async (req, res) => {
     const psdId = req.params.psdId;
