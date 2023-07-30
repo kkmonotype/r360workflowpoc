@@ -31,7 +31,7 @@ app.put('/api/psd/:psdId', async (req, res) => {
 });
 
 
-cron.schedule('* * * * * *', () => {
+cron.schedule('5 * * * * *', () => {
     psdScheduler.pollMessage();
 });
 

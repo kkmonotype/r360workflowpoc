@@ -96,21 +96,29 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
         }
     }
 
-    if ('' !== Ticket_Status) {
-        await PSD.update({ Ticket_Status: Ticket_Status }, {
+    console.log(psdInput);
+
+    if ('' !== Ticket_Status && '' !== Employee_FK) {
+        await PSD.update({ Ticket_Status: Ticket_Status, Employee_FK: Employee_FK }, {
             where: {
                 R360_PSD_ID: R360_PSD_ID
             }
         });
-    }
 
+        //Get psd details
+        const psdDetails = await this.getPSDDetails(R360_PSD_ID);
+        const callbackQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo";
 
-    if ('' !== Employee_FK) {
-        await PSD.update({ Employee_FK: Employee_FK }, {
-            where: {
-                R360_PSD_ID: R360_PSD_ID
-            }
-        });
+        // Send message to callback queue
+        const send_result = await SqsService.sendMessage(JSON.stringify({
+            taskToken: psdDetails[0].Workflow_Token,
+            R360_PSD_ID: R360_PSD_ID,
+            status: 'approved',
+        }), callbackQueue);
+
+        if (send_result) {
+            console.log("Message sent successfully");
+        }
     }
 
     // else {
