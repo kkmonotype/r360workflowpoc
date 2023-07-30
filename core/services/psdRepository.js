@@ -45,6 +45,11 @@ PSDRepository.prototype.getPSDDetails = async function (R360_PSD_ID) {
     return instances ? instances.map(instance => instance.toJSON()) : [];
 }
 
+PSDRepository.prototype.getPSDList = async function () {
+    const instances = await PSD.findAll();
+    return instances ? instances.map(instance => instance.toJSON()) : [];
+}
+
 PSDRepository.prototype.getCohortLead = async function (Cohort_FK) {
     try {
         const [results] = await mySqlORM.query(
@@ -63,47 +68,25 @@ PSDRepository.prototype.getCohortLead = async function (Cohort_FK) {
 PSDRepository.prototype.updatePSD = async function (psdInput) {
     const {
         Ticket_Status,
-        Ticket_Role,
         Employee_FK,
         R360_PSD_ID
     } = psdInput;
 
-    // Line manager needs to approve the task
-    if ('' !== Ticket_Role) {
-        await PSD.update(
-            { Ticket_Role: Ticket_Role },
-            { where: { R360_PSD_ID: R360_PSD_ID } }
-        );
-
-        await PSD.update(
-            { Ticket_Role: Ticket_Role },
-            { where: { R360_PSD_ID: R360_PSD_ID } }
-        );
-
-        //Get psd details
-        const psdDetails = await this.getPSDDetails(R360_PSD_ID);
-        const callbackQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo";
-
-        // Send message to callback queue
-        const send_result = await SqsService.sendMessage(JSON.stringify({
-            taskToken: psdDetails[0].Workflow_Token,
-            R360_PSD_ID: R360_PSD_ID,
-            status: 'approved',
-        }), callbackQueue);
-
-        if (send_result) {
-            console.log("Message sent successfully");
+    if ('' !== Ticket_Status) {
+        if ('open' === Ticket_Status) {
+            await PSD.update(
+                { Ticket_Role: 'Researcher', Ticket_Status: 'open' },
+                { where: { R360_PSD_ID: R360_PSD_ID } }
+            );
+        } 
+        
+        if ('' !== Employee_FK) {
+            await PSD.update({ Ticket_Status: Ticket_Status, Employee_FK: Employee_FK }, {
+                where: {
+                    R360_PSD_ID: R360_PSD_ID
+                }
+            });
         }
-    }
-
-    console.log(psdInput);
-
-    if ('' !== Ticket_Status && '' !== Employee_FK) {
-        await PSD.update({ Ticket_Status: Ticket_Status, Employee_FK: Employee_FK }, {
-            where: {
-                R360_PSD_ID: R360_PSD_ID
-            }
-        });
 
         //Get psd details
         const psdDetails = await this.getPSDDetails(R360_PSD_ID);
