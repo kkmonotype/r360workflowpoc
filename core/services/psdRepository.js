@@ -86,19 +86,16 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
     const {
         Ticket_Status,
         Employee_FK,
-        R360_PSD_ID
+        R360_PSD_ID,
+        Ticket_Role = 'Researcher'
     } = psdInput;
 
     const psdDetails = await this.getPSDDetails(R360_PSD_ID);
 
-    if(psdDetails[0].Workflow_Token === '') {
-        throw new Error(`Workflow token is empty for ticket: ${R360_PSD_ID}`);
-    }
-
     if ('' !== Ticket_Status) {
         if ('open' === Ticket_Status) {
             await PSD.update(
-                { Ticket_Role: 'Researcher', Ticket_Status: 'open' },
+                { Ticket_Role: Ticket_Role, Ticket_Status: 'open' },
                 { where: { R360_PSD_ID: R360_PSD_ID } }
             );
         }
@@ -124,15 +121,13 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
         if (send_result) {
             console.log("Message sent successfully");
         }
+    } else {
+        await PSD.update({ Ticket_Status: Ticket_Status, Ticket_Role: Ticket_Role, Employee_FK: Employee_FK }, {
+            where: {
+                R360_PSD_ID: R360_PSD_ID
+            }
+        });
     }
-
-    // else {
-    //     await TaskAllocationPlan.update({ status: status, employee_id: auditor_id }, {
-    //         where: {
-    //             task_allocation_plan_id: task_allocation_plan_id
-    //         }
-    //     });
-    // }
 
     return {};
 }

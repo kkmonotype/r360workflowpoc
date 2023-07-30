@@ -8,14 +8,14 @@ ProcessPSDDetails.prototype.pollMessage = async () => {
         const cohortAssignMentQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/CohortLeadAssignmentQueue";
         const callbackQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo";
         const response = await SqsService.pullMessage(
-            cohortAssignMentQueue,[]
+            cohortAssignMentQueue, []
         );
 
         // Extract and process the message body
         if (response && response.Messages) {
             const messageBody = JSON.parse(response.Messages[0].Body) ?? '';
             const messageAttributes = JSON.parse(messageBody.Message) ?? '';
-            
+
             const SF_Ticket_ID = messageAttributes.Id ?? '';
             const PSD_Number = messageAttributes.PSD_Name ?? '';
             const PSD_Source = messageAttributes.Source__c ?? '';
@@ -27,27 +27,52 @@ ProcessPSDDetails.prototype.pollMessage = async () => {
             const ETC = messageAttributes.ETC__c ?? '';
             const ETS = messageAttributes.ETC__s ?? '';
 
+            let R360_PSD_ID = messageAttributes.R360_PSD_ID ?? '';
+
             const cohortLead = await psdRepository.getCohortLead(Cohort_FK);
 
-            const PSDInput = {
-                SF_Ticket_ID,
-                PSD_Number,
-                PSD_Source,
-                Ticket_Type,
-                Ticket_Priority,
-                ACCOUNT_ID_FK,
-                Account_Name,
-                Cohort_FK,
-                cohortLead,
-                ETC,
-                ETS
-            };
+            console.log('cohortLead', cohortLead);
+            console.log('R360_PSD_ID', R360_PSD_ID);
 
-            // Add logic to find the employee id from the cohort id
+            let psdDetails = {};
 
-            const psdDetails = await psdRepository.createPSD(
-                PSDInput
-            );
+            console.log(messageAttributes);
+            console.log('R360_PSD_ID', messageAttributes.R360_PSD_ID);
+
+            // Reassign the ticket to lead
+            if ('' !== R360_PSD_ID) {
+                const psdInput = {
+                    Ticket_Status: '',
+                    Ticket_Role: '',
+                    Employee_FK: cohortLead,
+                    R360_PSD_ID: R360_PSD_ID
+                }
+
+                console.log('psdInput', psdInput);
+                await psdRepository.updatePSD(psdInput);
+            } else {
+                const PSDInput = {
+                    SF_Ticket_ID,
+                    PSD_Number,
+                    PSD_Source,
+                    Ticket_Type,
+                    Ticket_Priority,
+                    ACCOUNT_ID_FK,
+                    Account_Name,
+                    Cohort_FK,
+                    cohortLead,
+                    ETC,
+                    ETS
+                };
+
+                // Add logic to find the employee id from the cohort id
+
+                psdDetails = await psdRepository.createPSD(
+                    PSDInput
+                );
+
+                R360_PSD_ID = psdDetails.R360_PSD_ID ?? '';
+            }
 
             const del_result = await SqsService.deleteMessage(response.Messages[0].ReceiptHandle, cohortAssignMentQueue);
 
@@ -58,7 +83,7 @@ ProcessPSDDetails.prototype.pollMessage = async () => {
             // Send message to callback queue
             const send_result = await SqsService.sendMessage(JSON.stringify({
                 taskToken: messageAttributes.taskToken,
-                R360_PSD_ID: psdDetails.R360_PSD_ID,
+                R360_PSD_ID: R360_PSD_ID,
                 Id: SF_Ticket_ID,
                 PSD_Name: PSD_Number,
                 Source__c: PSD_Source,
