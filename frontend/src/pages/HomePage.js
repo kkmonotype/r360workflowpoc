@@ -15,11 +15,9 @@ const HomePage = () => {
         <div>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6">
-                        <img src={logo} alt="logo" />
-                    </Typography>
-                    <Button color="inherit" component={Link} to="/lead">Cohort Lead</Button>
-                    <Button color="inherit" component={Link} to="/researcher">Researcher</Button>
+                    <img src={logo} alt="logo" className="App-logo" />
+                    <Button size="large" color="inherit" component={Link} to="/lead">Cohort Lead</Button>
+                    <Button size="large" color="inherit" component={Link} to="/researcher">Researcher</Button>
                 </Toolbar>
             </AppBar>
         </div>

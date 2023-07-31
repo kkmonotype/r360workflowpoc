@@ -20,7 +20,6 @@ function ResearcherPage() {
     }, []);
 
     const handleAccept = async (psdId, status) => {
-        console.log(psdId);
         const employeeId = '0052R000009xw09QAA';
         // Upadte task status to in progress
         const response = await fetch(`http://localhost:4000/api/psd/${psdId}`, {
@@ -35,7 +34,6 @@ function ResearcherPage() {
         });
         const data = await response.json();
 
-        console.log(data);
         setMessage(data.message);
     };
 
