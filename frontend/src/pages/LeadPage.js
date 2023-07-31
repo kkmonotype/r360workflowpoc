@@ -36,14 +36,23 @@ function LeadPage() {
         <div className="task-list">
             <img src={logo} alt="logo" className="App-logo" />
 
+            <h1>Lead Page</h1>
+
             <h2>PSD List</h2>
             {tickets.map((ticket) => (
                 <div className="task" key={ticket.R360_PSD_ID}>
-                    <h4>Name: {ticket.R360_PSD_ID}</h4>
 
-                    <p>Priority: {ticket.Ticket_Priority}</p>
+                    <h4>Ticket Id: {ticket.R360_PSD_ID}</h4>
+
+                    <p>Ticket Priority: {ticket.Ticket_Priority}</p>
 
                     <p>Ticket Status: {ticket.Ticket_Status}</p>
+
+                    <p>ETA: {ticket.ETC}</p>
+
+                    <p>Cohort Id: {ticket.Cohort_FK}</p>
+
+
 
                     {!ticket.Ticket_Status && (
                         <div>

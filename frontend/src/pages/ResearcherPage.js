@@ -41,6 +41,8 @@ function ResearcherPage() {
         <div className="task-list">
             <img src={logo} alt="logo" className="App-logo" />
 
+            <h1>Researcher Page</h1>
+
             <h2>PSD List</h2>
 
             {message &&
@@ -49,11 +51,13 @@ function ResearcherPage() {
 
             {tickets.map((ticket) => (
                 <div className="task" key={ticket.R360_PSD_ID}>
-                    <h4>Name: {ticket.R360_PSD_ID}</h4>
+                    <h4>Ticket Id: {ticket.R360_PSD_ID}</h4>
 
                     <p>Priority: {ticket.Ticket_Priority}</p>
 
                     <p>Ticket Status: {ticket.Ticket_Status}</p>
+
+                    <p>ETA: {ticket.ETC}</p>
 
                     {'open' === ticket.Ticket_Status && (
                         <div>
