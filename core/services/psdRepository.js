@@ -5,6 +5,7 @@ const {
     mySqlORM
 } = require('../db');
 const SqsService = require('../scheduler/sqsService');
+const { Op } = require('sequelize');
 
 function PSDRepository() { }
 
@@ -139,6 +140,17 @@ PSDRepository.prototype.updatePSDWorkflowFlag = async function (R360_PSD_ID, Wor
         { where: { R360_PSD_ID: R360_PSD_ID } }
     );
     return {};
+}
+
+PSDRepository.prototype.getListOfEscalatedTickets = async function () {
+    const instances = await PSD.findAll({ where: { Ticket_Status: 'in-progress', 
+    ETC: {
+        [Op.lt]: new Date(),
+      },
+
+} });
+
+    return instances ? instances.map(instance => instance.toJSON()) : [];
 }
 
 module.exports = new PSDRepository();
