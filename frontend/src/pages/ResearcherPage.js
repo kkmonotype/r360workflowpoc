@@ -23,7 +23,7 @@ function ResearcherPage() {
         const employeeId = '0052R000009xw09QAA';
         // Upadte task status to in progress
         const response = await fetch(`http://localhost:4000/api/psd/${psdId}`, {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
