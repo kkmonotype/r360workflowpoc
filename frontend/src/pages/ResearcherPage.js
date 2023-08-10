@@ -10,8 +10,8 @@ function ResearcherPage() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        const getPSDs = async () => {${process.env.REACT_APP_BACKEND_URL}/api/psds`);
-            const response = await fetch(`
+        const getPSDs = async () => {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/psds`);
             const data = await response.json();
 
             setTickets(data);
