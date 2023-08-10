@@ -134,9 +134,10 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
     return {};
 }
 
-PSDRepository.prototype.updatePSDWorkflowFlag = async function (R360_PSD_ID, Workflow_Flag) {
+
+PSDRepository.prototype.updatePSDStatus = async function (R360_PSD_ID, Ticket_Status) {
     await PSD.update(
-        { Workflow_Flag: Workflow_Flag },
+        { Ticket_Status: Ticket_Status },
         { where: { R360_PSD_ID: R360_PSD_ID } }
     );
     return {};

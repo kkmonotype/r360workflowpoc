@@ -26,27 +26,6 @@ app.get('/api/psd/:psdId', async (req, res) => {
     res.send(psdDetails)
 });
 
-app.put('/api/psd/:psdId', async (req, res) => {
-    try {
-        const psdInput = {
-            Ticket_Status: req.body.Ticket_Status ?? '',
-            Ticket_Role: req.body.Ticket_Role ?? '',
-            Employee_FK: req.body.Employee_FK ?? '',
-            R360_PSD_ID: req.params.psdId ?? ''
-        }
-
-        const psdDetails = await psdRepository.updatePSD(psdInput);
-        res.send(psdDetails);
-    } catch (error) {
-        res.send(
-            {
-                message: error.message
-            }
-        );
-        console.log(error.message);
-    }
-});
-
 app.post('/api/psd/:psdId', async (req, res) => {
     try {
         const psdInput = {
@@ -56,15 +35,15 @@ app.post('/api/psd/:psdId', async (req, res) => {
             R360_PSD_ID: req.params.psdId ?? ''
         }
 
-        console.log(psdInput);
+        await psdRepository.updatePSDStatus(psdInput.R360_PSD_ID, psdInput.Ticket_Status);
+        
         const psdDetails = await psdRepository.getPSDDetails(psdInput.R360_PSD_ID);
         psdInput.Workflow_Token = psdDetails[0].Workflow_Token;
         
-        console.log(psdInput);
-        const queueURL = "https://sqs.us-east-1.amazonaws.com/450512176569/TicketLifeCycleManagement.fifo";
 
+        // Send event to queue and process
+        const queueURL = "https://sqs.us-east-1.amazonaws.com/450512176569/TicketLifeCycleManagement.fifo";
         const send_result = await SqsService.sendMessage(JSON.stringify({
-            Ticket_Status: psdInput.Ticket_Status,
             Ticket_Role: psdInput.Ticket_Role,
             R360_PSD_ID: psdInput.R360_PSD_ID,
             taskToken: psdInput.Workflow_Token

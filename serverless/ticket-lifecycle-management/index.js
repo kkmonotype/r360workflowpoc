@@ -9,14 +9,12 @@ const con = mysql.createConnection({
 });
 
 exports.handler = (event, context, callback) => {
-
   console.log(process.env.MySql_HOST);
   console.log(event.Records[0].body);
   const body = JSON.parse(event.Records[0].body);
   console.log(body);
 
   const {
-    Ticket_Status,
     Ticket_Role,
     R360_PSD_ID,
     taskToken
@@ -25,7 +23,7 @@ exports.handler = (event, context, callback) => {
   // allows for using callbacks as finish/error-handlers
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const sql = `UPDATE PSD SET Ticket_Role="${Ticket_Role}", Ticket_Status="${Ticket_Status}" WHERE R360_PSD_ID = ${R360_PSD_ID}`;
+  const sql = `UPDATE PSD SET Ticket_Role="${Ticket_Role}" WHERE R360_PSD_ID = ${R360_PSD_ID}`;
 
   console.log(sql);
   console.log('---------------------------------');

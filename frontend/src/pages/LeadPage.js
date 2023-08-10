@@ -10,7 +10,7 @@ function LeadPage() {
 
     useEffect(() => {
         const getPSDs = async () => {
-            const response = await fetch(`http://localhost:4000/api/psds`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/psds`);
             const data = await response.json();
 
             setTickets(data);
@@ -21,8 +21,8 @@ function LeadPage() {
     const handleAccept = async (psdId, status) => {
         console.log(psdId);
         // Upadte task status to in progress
-        const response = await fetch(`http://localhost:4000/api/psd/${psdId}`, {
-            method: "PUT",
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/psd/${psdId}`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

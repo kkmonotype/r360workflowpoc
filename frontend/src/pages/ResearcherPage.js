@@ -10,8 +10,8 @@ function ResearcherPage() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        const getPSDs = async () => {
-            const response = await fetch(`http://localhost:4000/api/psds`);
+        const getPSDs = async () => {${process.env.REACT_APP_BACKEND_URL}/api/psds`);
+            const response = await fetch(`
             const data = await response.json();
 
             setTickets(data);
@@ -22,7 +22,7 @@ function ResearcherPage() {
     const handleAccept = async (psdId, status) => {
         const employeeId = '0052R000009xw09QAA';
         // Upadte task status to in progress
-        const response = await fetch(`http://localhost:4000/api/psd/${psdId}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/psd/${psdId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
