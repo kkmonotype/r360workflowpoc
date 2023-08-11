@@ -24,8 +24,8 @@ db.Function = Sequelize.fn;
 db.Column = Sequelize.col;
 
 // link tables to database instance
-db.Employee = require('./tables/employee')(mySqlORM, Sequelize);
-db.PSD = require('./tables/psd')(mySqlORM, Sequelize);
+db.Employee = require('./tables/user')(mySqlORM, Sequelize);
+db.researchPSD = require('./tables/researchPSD')(mySqlORM, Sequelize);
 db.Cohort = require('./tables/cohort')(mySqlORM, Sequelize);
 db.mySqlORM = mySqlORM;
 

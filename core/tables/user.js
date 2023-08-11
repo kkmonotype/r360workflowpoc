@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const schema = sequelize.define("STG_SF_User_Data", {
-    User_PK:{
+    User_PK: {
       type: Sequelize.NUMBER,
       autoIncrement: true,
       primaryKey: true
     },
-    User_ID:{
+    User_ID: {
       type: Sequelize.NUMBER,
       primaryKey: true
     },
@@ -42,7 +42,11 @@ module.exports = (sequelize, Sequelize) => {
     Profile_Name: {
       type: Sequelize.STRING
     },
-  });
+  }, {
+    freezeTableName: true,
+    timestamps: false,
+  }
+  );
 
   return schema;
 };

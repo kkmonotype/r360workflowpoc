@@ -1,13 +1,12 @@
 const {
-    STG_SF_User_Data,
+    Employee,
 } = require('../db');
 
 function UserRepository() { }
 
 UserRepository.prototype.getUserDetails = async function (Email) {
-    const instances = await STG_SF_User_Data.findOne({ where: { Email } });
-    return instances ? instance.toJSON() : [];
+    const instances = await Employee.findOne({ where: { Email: Email } });
+    return instances ? instances.toJSON() : [];
 }
 
 module.exports = new UserRepository();
-

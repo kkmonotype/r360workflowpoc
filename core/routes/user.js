@@ -5,7 +5,8 @@ const wrapAsync = require('../utils/wrapAsync.js');
 
 router.get('/api/users/:email', wrapAsync(async (req, res) => {
     // get from query params
-    const employeeEmail = req.query.email;
+    const employeeEmail = req.params.email;
+    console.log('employeeEmail: ', employeeEmail);
     const userDetails = await UserRepository.getUserDetails(employeeEmail);
     res.send(userDetails)
 }));
