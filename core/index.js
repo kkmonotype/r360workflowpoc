@@ -67,42 +67,8 @@ app.post('/api/psd/:psdId', async (req, res) => {
 });
 
 
-cron.schedule('* * * * * *', () => {
-    psdScheduler.pollMessage();
-});
-
-// cron.schedule('3 * * * * *', async () => {
-//     const escaltedPSDs = await psdRepository.getListOfEscalatedTickets();
-
-//     if (escaltedPSDs.length > 0) {
-//         const callbackQueue = "https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo";
-
-//         // loop through the list and send message to callback queue
-//         for (let i = 0; i < escaltedPSDs.length; i++) {
-//             console.log(escaltedPSDs[i].Workflow_Token);
-//             const send_result = await SqsService.sendMessage(JSON.stringify({
-//                 taskToken: escaltedPSDs[i].Workflow_Token,
-//                 R360_PSD_ID: escaltedPSDs[i].R360_PSD_ID,
-//                 status: 'approved',
-//                 escalation: true,
-//             }), callbackQueue);
-
-//             const psdInput = {
-//                 Ticket_Status: '',
-//                 Ticket_Role: '',
-//                 Employee_FK: escaltedPSDs[i].Employee_FK,
-//                 R360_PSD_ID: escaltedPSDs[i].R360_PSD_ID
-//             }
-
-//             if (send_result) {
-//                 psdRepository.updatePSD(psdInput);
-//                 console.log(`Escalation happened for ${escaltedPSDs[i].R360_PSD_ID}`);
-//             }
-
-//         }
-
-//     }
-
+// cron.schedule('* * * * * *', () => {
+//     psdScheduler.pollMessage();
 // });
 
 app.listen(port, () => {
