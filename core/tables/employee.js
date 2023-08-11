@@ -1,20 +1,21 @@
 module.exports = (sequelize, Sequelize) => {
-  const schema = sequelize.define("EMPLOYEE", {
-    Employee_ID:{
+  const schema = sequelize.define("STG_SF_User_Data", {
+    User_PK:{
       type: Sequelize.NUMBER,
       autoIncrement: true,
       primaryKey: true
     },
-    Employee_PK: {
-      type: Sequelize.STRING
-    },
-    Cohort_FK: {
-      type: Sequelize.STRING
+    User_ID:{
+      type: Sequelize.NUMBER,
+      primaryKey: true
     },
     First_Name: {
       type: Sequelize.STRING
     },
     Last_Name: {
+      type: Sequelize.STRING
+    },
+    Name: {
       type: Sequelize.STRING
     },
     Email: {
@@ -30,6 +31,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     Manager_Id: {
+      type: Sequelize.STRING
+    },
+    Date_Of_Joining: {
+      type: Sequelize.STRING
+    },
+    IsActive: {
+      type: Sequelize.STRING
+    },
+    Profile_Name: {
       type: Sequelize.STRING
     },
   });

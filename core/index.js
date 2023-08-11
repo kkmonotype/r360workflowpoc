@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
-const getTickets = require('./routes/getTickets')
+const ticketRoute = require('./routes/ticket')
 
 require('./db')
 
@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors());
-app.use('/', getTickets);
+app.use('/', tickets);
 
 // Handle errors
 app.use((err, req, res, next) => {
