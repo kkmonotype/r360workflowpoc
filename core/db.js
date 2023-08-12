@@ -29,7 +29,7 @@ db.Column = Sequelize.col
 // link tables to database instance
 db.Employee = require('./tables/user')(mySqlORM, Sequelize)
 db.researchPSD = require('./tables/researchPSD')(mySqlORM, Sequelize)
-db.Cohort = require('./tables/cohort')(mySqlORM, Sequelize)
+db.cohortMaster = require('./tables/cohortMaster')(mySqlORM, Sequelize)
 db.ticketToken = require('./tables/ticketToken')(mySqlORM, Sequelize)
 db.ticketStatus = require('./tables/ticketStatus')(mySqlORM, Sequelize)
 db.mySqlORM = mySqlORM

@@ -89,6 +89,7 @@ router.post(
       Ticket_Status
     )
 
+    // TODO: This needs to be updated through Lambda
     const status = await ticketStatusRepo.createOrUpdateTicketStatus(
       Ticket_ID,
       Ticket_Status,

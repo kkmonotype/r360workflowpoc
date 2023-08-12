@@ -1,8 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
   const schema = sequelize.define(
-    'STG_Ticket_Account',
+    'STG_Ticket_Role_Assignment',
     {
-      Ticket_Account_PK: {
+      Ticket_Role_Assignment_PK: {
         type: Sequelize.NUMBER,
         autoIncrement: true,
         primaryKey: true,
@@ -10,19 +10,16 @@ module.exports = (sequelize, Sequelize) => {
       Ticket_ID: {
         type: Sequelize.STRING,
       },
-      Account_ID: {
+      Department_ID: {
         type: Sequelize.STRING,
       },
-      Ticket_Type: {
+      Role_ID: {
         type: Sequelize.STRING,
       },
-      Ticket_Create_Date: {
+      Date_Assigned: {
         type: Sequelize.STRING,
       },
-      Created_By: {
-        type: Sequelize.STRING,
-      },
-      Parent_PSD_ID: {
+      Assigned_By: {
         type: Sequelize.STRING,
       },
     },

@@ -1,30 +1,39 @@
 module.exports = (sequelize, Sequelize) => {
   const schema = sequelize.define(
-    'STG_Ticket_Account',
+    'STG_Cohort_EMP',
     {
-      Ticket_Account_PK: {
+      Cohort_EMP_PK: {
         type: Sequelize.NUMBER,
         autoIncrement: true,
         primaryKey: true,
       },
-      Ticket_ID: {
+      Cohort_ID: {
         type: Sequelize.STRING,
       },
-      Account_ID: {
+      Cohort_Name: {
         type: Sequelize.STRING,
       },
-      Ticket_Type: {
+      Employee_ID: {
         type: Sequelize.STRING,
       },
-      Ticket_Create_Date: {
+      Employee_Name: {
         type: Sequelize.STRING,
       },
-      Created_By: {
+      Employee_Department: {
         type: Sequelize.STRING,
       },
-      Parent_PSD_ID: {
+      Valid_From: {
         type: Sequelize.STRING,
       },
+      Valid_To: {
+        type: Sequelize.STRING,
+      },
+      Latest_Flag: {
+        type: Sequelize.STRING,
+      },
+      Active_Flag: {
+        type: Sequelize.STRING,
+      }
     },
     {
       freezeTableName: true,
