@@ -31,14 +31,11 @@ exports.handler = async (event, context) => {
 
     const response = await axios.post(url, data);
 
-    console.log("Response:", response.data);
-
     return {
       statusCode: response.status,
       body: JSON.stringify(response.data),
     };
   } catch (error) {
-    console.error("Error:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ message: "Internal Server Error" }),

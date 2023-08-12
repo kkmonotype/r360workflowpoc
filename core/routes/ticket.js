@@ -1,6 +1,8 @@
 let express = require('express')
 let router = express.Router()
 const researchPSDRepo = require('../repositories/researchPSDRepositories.js')
+const ticketTokenRepo = require('../repositories/ticketTokenRepo.js')
+const ticketStatusRepo = require('../repositories/ticketStatusRepo.js')
 const wrapAsync = require('../utils/wrapAsync.js')
 
 router.get(
@@ -45,5 +47,46 @@ router.post(
     res.send(ticketList).status(201)
   })
 )
+
+// Create or update ticket token using post
+router.post(
+  '/api/tickets/:id/token',
+  wrapAsync(async (req, res) => {
+    console.log(req.params)
+    const Ticket_ID = req.params.id
+    const Ticket_Token = req.body.Ticket_Token;
+    
+    console.log(Ticket_ID, Ticket_Token);
+    const status = await ticketTokenRepo.createOrUpdateTicketToken(
+      Ticket_ID,
+      Ticket_Token
+    )
+    
+    res.send(status)
+  })
+)
+
+// Update ticket token using patch
+router.post(
+  '/api/tickets/:id/status',
+  wrapAsync(async (req, res) => {
+    const Ticket_ID = req.params.id
+    const Ticket_Status = req.body.Ticket_Status;
+    const Employee_ID = req.body.Employee_ID;
+    
+    await researchPSDRepo.updateTicketStatus(
+      Ticket_ID,
+      Ticket_Status
+    )
+
+    const status = await ticketStatusRepo.createOrUpdateTicketStatus(
+      Ticket_ID,
+      Ticket_Status,
+      Employee_ID
+    )
+    res.send(status)
+  })
+)
+
 
 module.exports = router

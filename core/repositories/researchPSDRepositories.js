@@ -28,4 +28,17 @@ ResearchPSDRepository.prototype.createResearchTicket = async function (
   return instance.toJSON()
 }
 
+// Update ticket status
+ResearchPSDRepository.prototype.updateTicketStatus = async function (
+  Ticket_ID,
+  Ticket_Status
+) {
+  return await researchPSD.update(
+    {
+      Ticket_Status: Ticket_Status,
+    },
+    { where: { Research_PK: Ticket_ID } }
+  )
+}
+
 module.exports = new ResearchPSDRepository()
