@@ -15,6 +15,16 @@ router.get(
   })
 )
 
+router.get(
+  '/api/tickets/:id',
+  wrapAsync(async (req, res) => {
+    // get from query params
+    const Ticket_ID = req.params.id
+    const ticketListDetails = await researchPSDRepo.getResearchTicketById(Ticket_ID)
+    res.send(ticketListDetails)
+  })
+)
+
 router.post(
   '/api/tickets/research',
   wrapAsync(async (req, res) => {

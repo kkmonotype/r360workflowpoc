@@ -41,4 +41,14 @@ ResearchPSDRepository.prototype.updateTicketStatus = async function (
   )
 }
 
+// Get research ticket by id
+ResearchPSDRepository.prototype.getResearchTicketById = async function (
+  Ticket_ID
+) {
+  const instance = await researchPSD.findOne({
+    where: { Research_PK: Ticket_ID },
+  })
+  return instance ? instance.toJSON() : null
+}
+
 module.exports = new ResearchPSDRepository()
