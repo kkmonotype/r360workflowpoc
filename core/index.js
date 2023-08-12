@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const ticketRoute = require('./routes/ticket')
 const userRoute = require('./routes/user')
+const ticketCohortRoute = require('./routes/ticketCohort')
 
 require('./db')
 
@@ -13,6 +14,7 @@ app.use(morgan('tiny'))
 app.use(cors())
 app.use('/', userRoute)
 app.use('/', ticketRoute)
+app.use('/', ticketCohortRoute)
 
 // Handle errors
 app.use((err, req, res, next) => {

@@ -25,6 +25,8 @@ ResearchPSDRepository.prototype.createResearchTicket = async function (
   reserachTicketDetails
 ) {
   const instance = await researchPSD.create(reserachTicketDetails)
+
+  // TODO: Insert record into TicketAccount table
   return instance.toJSON()
 }
 
