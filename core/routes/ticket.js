@@ -129,11 +129,7 @@ router.post(
     if (result) {
       await researchPSDRepo.updateTicketStatus(Ticket_ID, 'Open')
 
-      await ticketStatusRepo.creatTicketStatus(
-        Ticket_ID,
-        'Open',
-        Assigned_By
-      )
+      await ticketStatusRepo.creatTicketStatus(Ticket_ID, 'Open', Assigned_By)
     }
     res.send(result)
   })
@@ -144,7 +140,6 @@ router.post(
   '/api/tickets/:id/user',
   wrapAsync(async (req, res) => {
     const Ticket_ID = req.params.id
-    const Department_ID = req.body.Department_ID
     const Employee_ID = req.body.Employee_ID
     const Role_ID = req.body.Role_ID
     const Assigned_By = req.body.Assigned_By
