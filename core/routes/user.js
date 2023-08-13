@@ -19,10 +19,22 @@ router.get(
   wrapAsync(async (req, res) => {
     // Send list of roles in json
     const roles = [
-      { name: 'Lead' },
-      { name: 'Team Member' },
-      { name: 'Manager' },
-      { name: 'Associate Manager' },
+      {
+        name: 'Lead',
+        department: 'Market Research',
+      },
+      {
+        name: 'Team Member',
+        department: 'Market Research',
+      },
+      {
+        name: 'Manager',
+        department: 'Market Research',
+      },
+      {
+        name: 'Associate Manager',
+        department: 'Market Research',
+      },
     ]
 
     res.send(roles)
@@ -35,7 +47,10 @@ router.get(
   wrapAsync(async (req, res) => {
     // get from query params
     const role = req.query.role
-    const userDetails = await UserRepository.getUsers(req.params.department, role)
+    const userDetails = await UserRepository.getUsers(
+      req.params.department,
+      role
+    )
     res.send(userDetails)
   })
 )

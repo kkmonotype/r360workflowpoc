@@ -3,6 +3,7 @@ let router = express.Router()
 const researchPSDRepo = require('../repositories/researchPSDRepositories.js')
 const ticketTokenRepo = require('../repositories/ticketTokenRepo.js')
 const ticketStatusRepo = require('../repositories/ticketStatusRepo.js')
+const ticketRoleAssignmentRepo = require('../repositories/ticketRoleAssignmentRepo.js')
 const wrapAsync = require('../utils/wrapAsync.js')
 
 router.get(
@@ -20,7 +21,9 @@ router.get(
   wrapAsync(async (req, res) => {
     // get from query params
     const Ticket_ID = req.params.id
-    const ticketListDetails = await researchPSDRepo.getResearchTicketById(Ticket_ID)
+    const ticketListDetails = await researchPSDRepo.getResearchTicketById(
+      Ticket_ID
+    )
     res.send(ticketListDetails)
   })
 )
@@ -59,9 +62,9 @@ router.post(
       Webserver_Research_Review,
       Opportunity_Name,
       Opportunity_Close_Date,
-    } = req.body);
+    } = req.body)
 
-    console.log(reserachTicketDetails) ;
+    console.log(reserachTicketDetails)
     const ticketList = await researchPSDRepo.createResearchTicket(
       reserachTicketDetails
     )
@@ -75,33 +78,30 @@ router.post(
   wrapAsync(async (req, res) => {
     console.log(req.params)
     const Ticket_ID = req.params.id
-    const Ticket_Token = req.body.Ticket_Token;
-    
-    console.log(Ticket_ID, Ticket_Token);
+    const Ticket_Token = req.body.Ticket_Token
+
+    console.log(Ticket_ID, Ticket_Token)
     const status = await ticketTokenRepo.createOrUpdateTicketToken(
       Ticket_ID,
       Ticket_Token
     )
-    
+
     res.send(status)
   })
 )
 
-// Update ticket token using patch
+// Update ticket status
 router.post(
   '/api/tickets/:id/status',
   wrapAsync(async (req, res) => {
     const Ticket_ID = req.params.id
-    const Ticket_Status = req.body.Ticket_Status;
-    const Employee_ID = req.body.Employee_ID;
-    
-    await researchPSDRepo.updateTicketStatus(
-      Ticket_ID,
-      Ticket_Status
-    )
+    const Ticket_Status = req.body.Ticket_Status
+    const Employee_ID = req.body.Employee_ID
+
+    await researchPSDRepo.updateTicketStatus(Ticket_ID, Ticket_Status)
 
     // TODO: This needs to be updated through Lambda
-    const status = await ticketStatusRepo.createOrUpdateTicketStatus(
+    const status = await ticketStatusRepo.creatTicketStatus(
       Ticket_ID,
       Ticket_Status,
       Employee_ID
@@ -110,5 +110,62 @@ router.post(
   })
 )
 
+// Assign ticket to role
+router.post(
+  '/api/tickets/:id/role',
+  wrapAsync(async (req, res) => {
+    const Ticket_ID = req.params.id
+    const Department_ID = req.body.Department_ID
+    const Role_ID = req.body.Role_ID
+    const Assigned_By = req.body.Assigned_By
+
+    const result = await ticketRoleAssignmentRepo.createTicketToRole(
+      Ticket_ID,
+      Department_ID,
+      Role_ID,
+      Assigned_By
+    )
+
+    if (result) {
+      await researchPSDRepo.updateTicketStatus(Ticket_ID, 'Open')
+
+      await ticketStatusRepo.creatTicketStatus(
+        Ticket_ID,
+        'Open',
+        Assigned_By
+      )
+    }
+    res.send(result)
+  })
+)
+
+// Assign ticket to user
+router.post(
+  '/api/tickets/:id/user',
+  wrapAsync(async (req, res) => {
+    const Ticket_ID = req.params.id
+    const Department_ID = req.body.Department_ID
+    const Role_ID = req.body.Role_ID
+    const Assigned_By = req.body.Assigned_By
+
+    const result = await ticketRoleAssignmentRepo.createTicketToRole(
+      Ticket_ID,
+      Department_ID,
+      Role_ID,
+      Assigned_By
+    )
+
+    if (result) {
+      await researchPSDRepo.updateTicketStatus(Ticket_ID, 'Assigned')
+
+      await ticketStatusRepo.creatTicketStatus(
+        Ticket_ID,
+        'Assigned',
+        Assigned_By
+      )
+    }
+    res.send(result)
+  })
+)
 
 module.exports = router
