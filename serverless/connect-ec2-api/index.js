@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
     const ec2InstanceIp = 'ec2-44-202-213-131.compute-1.amazonaws.com';
     const ec2InstancePort = '4000';
 
-    const response = await axios.get(`http://${ec2InstanceIp}:${ec2InstancePort}/api/psds`);
+    const response = await axios.get(`http://${ec2InstanceIp}:${ec2InstancePort}/api/tickets`);
 
     return {
       statusCode: response.status,

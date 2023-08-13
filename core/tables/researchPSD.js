@@ -1,11 +1,8 @@
-require('dotenv')
-const moment = require('moment')
-
 module.exports = (sequelize, Sequelize) => {
   const schema = sequelize.define(
-    'PSD',
+    'STG_SF_Research_PSD',
     {
-      R360_PSD_ID: {
+      Research_PK: {
         type: Sequelize.NUMBER,
         autoIncrement: true,
         primaryKey: true,
@@ -13,56 +10,58 @@ module.exports = (sequelize, Sequelize) => {
       SF_Ticket_ID: {
         type: Sequelize.STRING,
       },
+      Ticket_Priority: {
+        type: Sequelize.STRING,
+      },
       PSD_Number: {
         type: Sequelize.STRING,
       },
-      PSD_Source: {
-        type: Sequelize.STRING,
-      },
-      Parent_PSD_ID: {
-        type: Sequelize.STRING,
-      },
-      Ticket_Type: {
+      Account_ID: {
         type: Sequelize.STRING,
       },
       Ticket_Status: {
         type: Sequelize.STRING,
       },
-      Ticket_Role: {
+      Call_Scheduled: {
         type: Sequelize.STRING,
       },
-      Ticket_Priority: {
+      Call_Scheduled_Date: {
         type: Sequelize.STRING,
       },
-      ACCOUNT_ID_FK: {
+      Sales_Rep: {
         type: Sequelize.STRING,
       },
-      Account_Name: {
+      Opportunity_ID: {
         type: Sequelize.STRING,
       },
-      Employee_FK: {
+      Sales_Comments: {
         type: Sequelize.STRING,
       },
-      Cohort_FK: {
+      Researcher_ID: {
         type: Sequelize.STRING,
       },
-      ETC: {
-        type: Sequelize.DATE,
-        get(val) {
-          return moment(this.getDataValue(val)).format(
-            process.env.MYSQL_DATE_FORMAT
-          )
-        },
+      Ticket_Type: {
+        type: Sequelize.STRING,
       },
-      ETS: {
-        type: Sequelize.DATE,
-        get(val) {
-          return moment(this.getDataValue(val)).format(
-            process.env.MYSQL_DATE_FORMAT
-          )
-        },
+      Apps_Research_Review: {
+        type: Sequelize.STRING,
       },
-      Workflow_Token: {
+      Websites_Research_Review: {
+        type: Sequelize.STRING,
+      },
+      DigiAds_Research_Review: {
+        type: Sequelize.STRING,
+      },
+      ePubs_Research_Review: {
+        type: Sequelize.STRING,
+      },
+      Webserver_Research_Review: {
+        type: Sequelize.STRING,
+      },
+      Opportunity_Name: {
+        type: Sequelize.STRING,
+      },
+      Opportunity_Close_Date: {
         type: Sequelize.STRING,
       },
     },
@@ -71,6 +70,5 @@ module.exports = (sequelize, Sequelize) => {
       timestamps: false,
     }
   )
-
   return schema
 }

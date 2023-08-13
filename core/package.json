@@ -23,5 +23,8 @@
     "sequelize": "^6.32.1",
     "sqlite3": "^5.1.6",
     "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "prettier": "3.0.1"
   }
 }
