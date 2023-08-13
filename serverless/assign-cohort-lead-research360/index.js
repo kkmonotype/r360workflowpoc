@@ -10,8 +10,6 @@ exports.handler = async (event, context) => {
 
     const request = JSON.parse(event.body);
 
-    console.log(request);
-
     const data = {
       Ticket_ID: request.Research_PK,
       Sales_Rep: request.Sales_Rep,
