@@ -4,6 +4,7 @@ const researchPSDRepo = require('../repositories/researchPSDRepositories.js')
 const ticketTokenRepo = require('../repositories/ticketTokenRepo.js')
 const ticketStatusRepo = require('../repositories/ticketStatusRepo.js')
 const ticketRoleAssignmentRepo = require('../repositories/ticketRoleAssignmentRepo.js')
+const ticketUserAssignmentRepo = require('../repositories/ticketUserAssignmentRepo.js')
 const wrapAsync = require('../utils/wrapAsync.js')
 
 router.get(
@@ -100,7 +101,6 @@ router.post(
 
     await researchPSDRepo.updateTicketStatus(Ticket_ID, Ticket_Status)
 
-    // TODO: This needs to be updated through Lambda
     const status = await ticketStatusRepo.creatTicketStatus(
       Ticket_ID,
       Ticket_Status,
@@ -145,12 +145,13 @@ router.post(
   wrapAsync(async (req, res) => {
     const Ticket_ID = req.params.id
     const Department_ID = req.body.Department_ID
+    const Employee_ID = req.body.Employee_ID
     const Role_ID = req.body.Role_ID
     const Assigned_By = req.body.Assigned_By
 
-    const result = await ticketRoleAssignmentRepo.createTicketToRole(
+    const result = await ticketUserAssignmentRepo.createTicketForUser(
       Ticket_ID,
-      Department_ID,
+      Employee_ID,
       Role_ID,
       Assigned_By
     )
