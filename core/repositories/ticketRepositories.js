@@ -2,9 +2,9 @@ const { Cohort, Employee, PSD, mySqlORM } = require('../db')
 const SqsService = require('../scheduler/sqsService')
 const { Op } = require('sequelize')
 
-function PSDRepository() {}
+function TicketRepository() {}
 
-PSDRepository.prototype.createPSD = async function (psdInput) {
+TicketRepository.prototype.createTicket = async function (psdInput) {
   const {
     SF_Ticket_ID,
     PSD_Number,
@@ -34,12 +34,13 @@ PSDRepository.prototype.createPSD = async function (psdInput) {
   })
 }
 
-PSDRepository.prototype.getPSDDetails = async function (R360_PSD_ID) {
+TicketRepository.prototype.getTicketDetails = async function (R360_PSD_ID) {
   const instances = await PSD.findAll({ where: { R360_PSD_ID } })
   return instances ? instances.map((instance) => instance.toJSON()) : []
 }
 
-PSDRepository.prototype.getPSDList = async function (status = '') {
+TicketRepository.prototype.getTickets = async function (status = '') {
+  console.log('status', status)
   if ('' !== status) {
     const instances = await PSD.findAll({
       where: { Ticket_Status: status },
@@ -54,7 +55,7 @@ PSDRepository.prototype.getPSDList = async function (status = '') {
   }
 }
 
-PSDRepository.prototype.getCohortLead = async function (Cohort_FK) {
+TicketRepository.prototype.getCohortLead = async function (Cohort_FK) {
   try {
     const [results] = await mySqlORM.query(
       "SELECT DISTINCT manager.Manager_Id AS manager_id FROM EMPLOYEE AS employee JOIN EMPLOYEE AS manager ON employee.Employee_ID = manager.Employee_ID WHERE employee.Cohort_FK = '4312X000025CT9eGRT'"
@@ -69,7 +70,7 @@ PSDRepository.prototype.getCohortLead = async function (Cohort_FK) {
   }
 }
 
-PSDRepository.prototype.updatePSD = async function (psdInput) {
+TicketRepository.prototype.updateTicket = async function (psdInput) {
   const {
     Ticket_Status,
     Employee_FK,
@@ -134,7 +135,7 @@ PSDRepository.prototype.updatePSD = async function (psdInput) {
   return {}
 }
 
-PSDRepository.prototype.updatePSDStatus = async function (
+TicketRepository.prototype.updateTicketStatus = async function (
   R360_PSD_ID,
   Ticket_Status
 ) {
@@ -145,7 +146,7 @@ PSDRepository.prototype.updatePSDStatus = async function (
   return {}
 }
 
-PSDRepository.prototype.getListOfEscalatedTickets = async function () {
+TicketRepository.prototype.getListOfEscalatedTickets = async function () {
   const instances = await PSD.findAll({
     where: {
       Ticket_Status: 'in-progress',
@@ -158,4 +159,4 @@ PSDRepository.prototype.getListOfEscalatedTickets = async function () {
   return instances ? instances.map((instance) => instance.toJSON()) : []
 }
 
-module.exports = new PSDRepository()
+module.exports = new TicketRepository()
