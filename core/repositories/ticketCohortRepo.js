@@ -38,7 +38,7 @@ TicketCohortRepo.prototype.cohortLeadAssignment = async function (
       Employee_ID: results[0].User_ID,
       Employee_Type: results[0].Role,
       Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
-      Created_By: 'System',
+      Assigned_By: 'System',
     })
 
     console.log(instance1);
