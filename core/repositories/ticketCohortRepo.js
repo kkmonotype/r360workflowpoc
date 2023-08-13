@@ -33,15 +33,14 @@ TicketCohortRepo.prototype.cohortLeadAssignment = async function (
       Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
     })
 
-    const instance1 = await ticketUserAssignment.create({
+    await ticketUserAssignment.create({
       Ticket_ID: Ticket_ID,
       Employee_ID: results[0].User_ID,
-      Ticket_Type: 'Research',
-      Ticket_Create_Date: currentDate.format(process.env.MYSQL_DATE_FORMAT),
-      Created_By: 'System',
+      Employee_Type: results[0].Role,
+      Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
+      Assigned_By: 'System',
     })
 
-    console.log(instance1);
 
     // Assign cohort lead
     const instance2 = await ticketRoleAssignment.create({
@@ -52,8 +51,6 @@ TicketCohortRepo.prototype.cohortLeadAssignment = async function (
       Assigned_By: 'System',
     })
 
-    console.log(instance2);
-    
 
     return instance && instance2
   }

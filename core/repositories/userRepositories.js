@@ -7,4 +7,12 @@ UserRepository.prototype.getUserDetails = async function (Email) {
   return instances ? instances.toJSON() : []
 }
 
+UserRepository.prototype.getUsers = async function (department, role) {
+  const instances = await Employee.findAll({
+    where: { Department: department, Role: role },
+  })
+
+  return instances ? instances.map((instance) => instance.toJSON()) : []
+}
+
 module.exports = new UserRepository()
