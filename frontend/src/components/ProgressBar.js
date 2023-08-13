@@ -10,7 +10,7 @@ const ProgressBar = ({ completion }) => {
   };
 
   return (
-    <div className="progress-bar-container">
+    <div className="progress-bar-container" style={{marginTop: "10px"}}>
       <div className="progress-bar" style={progressBarStyle}></div>
     </div>
   );

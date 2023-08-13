@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressBar from '../components/ProgressBar';
 import Checkbox from '../components/Checkbox';
 import taskData from '../utils/taskData';
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: theme.spacing(2),
+    border:"1px solid #eee"
   },
   taskDetails: {
     display: 'flex',
@@ -56,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent:"space-between",
     marginBottom: theme.spacing(2),
     width: '100%',
+    padding: "15px",
+    borderBottom: "1px solid #eee"
   },
   assignTasks: {
     display: 'flex',
@@ -76,12 +79,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark,
     },
     margin: theme.spacing(2),
+    minWidth:"140px"
   },
   cancelButton: {
     backgroundColor: "white",
     color: "#444",
     border:"1px solid #eee;",
     margin: theme.spacing(2),
+    minWidth:"140px"
   },
 }));
 
@@ -91,9 +96,68 @@ const TaskAssignment = () => {
   const [tasks, setTasks] = useState(taskData);
   const [isChecked, setIsChecked] = useState(false);
 
+  const [roles,setRoles]=useState([]);
+  const [members,setMembers]=useState([]);
+  const [role,setRole]=useState('');
+  const [member,setMember]=useState('');
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+
+ 
+
+  async function fetchRoles() {
+    const url = 'http://localhost:4000/api/users-roles';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setRoles(data); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  async function fetchMembers() {
+    const url = 'http://localhost:4000/api/Market Research/users?role=Team Member';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setMembers(data); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  const handleSubmit = async () => {
+ 
+    const response = await fetch(`http://localhost:4000/api/tickets/user-assignment`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "Ticket_ID": Ticket_ID,
+          "Role_ID": member,
+          "Employee_ID": "005E0000000ZEXNIA9",
+          "Assigned_By": "0054W00000ENuj4QAD"
+      }),
+    });
+    const data = await response.json();
+
+    setMessage(data.message);
+};
+
+  useEffect(() => {
+    fetchRoles();
+    fetchMembers();
+  }, []); 
 
   return (
     <Container className={classes.taskAssignmentContainer}>
@@ -108,7 +172,7 @@ const TaskAssignment = () => {
         </div>
         <div className={`className='task-ticket-details`}>
           <Typography className={classes.taskHeading}>Completion</Typography>
-          <ProgressBar completion={completionStatus} />
+          <ProgressBar completion={completionStatus} style={{marginTop:"15px"}}/>
           <Typography className={classes.completionStatus}>
             {completionStatus}%
           </Typography>
@@ -116,21 +180,26 @@ const TaskAssignment = () => {
       </div>
       
       <div className={classes.assignResearcher}>
-        <Typography className={classes.taskHeading}>Assign Role</Typography>
+        <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{role}</span></Typography>
         <Select className="mt-1 form-select ar-select w-full border-spacing-1"
         style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
-         value={""} onChange={(e) => e.target.value}>
-          <MenuItem value="Riya">Editor</MenuItem>
+         value={""} onChange={(e) => setRole(e.target.value)}>
+          {roles.map((e)=>{
+            return(<MenuItem value={e.name}>{e.name}</MenuItem>)
+          })}
+          
         </Select>
       </div>
 
       <div className={classes.assignResearcher}>
-        <Typography className={classes.taskHeading}>Assign Researcher</Typography>
+        <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member}</span></Typography>
         <Select className="mt-1 form-select ar-select w-full"
                 style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
 
-        value={""} onChange={(e) => e.target.value}>
-          <MenuItem value="Riya">Riya</MenuItem>
+        value={""} onChange={(e) => setMember(e.target.value)}>
+           {members.map((e)=>{
+            return(<MenuItem value={e.User_ID}>{e.Name}</MenuItem>)
+          })}
         </Select>
       </div>
       <div className={classes.assignTasks}>
@@ -140,7 +209,7 @@ const TaskAssignment = () => {
       
       {isChecked && (
         <div className={classes.taskDetails}>
-          <TableReusable data={tasks} tdstyles="tdstyles" />
+          <TableReusable data={tasks} val={member} tdstyles="tdstyles" />
         </div>
       )}
       <div className={classes.buttonContainer}>
@@ -148,6 +217,7 @@ const TaskAssignment = () => {
           type="submit"
           className={`${classes.nextButton} px-4 py-2`}
           variant="contained"
+          onClick={handleSubmit}
         >
           Save
         </Button>

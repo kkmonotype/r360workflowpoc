@@ -9,7 +9,7 @@ import {
     Button,
   } from '@material-ui/core';
 
-const TableReusable = ({ data, tdstyles, modifyHeader = (val) => val }) => {
+const TableReusable = ({ data, tdstyles,val, modifyHeader = (val) => val }) => {
 
   const handleSelectChange = (e) => {
     console.log(e.target.value);
@@ -28,9 +28,14 @@ const TableReusable = ({ data, tdstyles, modifyHeader = (val) => val }) => {
             </div>
           ) : (
             key === 'Assigned_To' ? (
-              <Select 
-              style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
-              options={[{ value: el[key], label: el[key] }]} value={el[key]} onChange={handleSelectChange} />
+              // <Select 
+              // style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+              // options={[{ value: el[key], label: el[key] }]} 
+              // // value={el[key]} 
+              // value={val}
+              // onChange={handleSelectChange} />
+              <label style={{ marginLeft: 5 }}>{val}</label>
+              
             ) : (
               <label style={{ marginLeft: 5 }}>{el[key]}</label>
             )
