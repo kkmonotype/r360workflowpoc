@@ -6,14 +6,14 @@ exports.handler = async (event, context) => {
     const ec2InstanceIp = "ec2-44-202-213-131.compute-1.amazonaws.com";
     const ec2InstancePort = "4000";
 
-    const url = `http://${ec2InstanceIp}:${ec2InstancePort}//api/tickets/${ticketId}/token`; // Replace with your API endpoint URL
-
     const request = JSON.parse(event.body);
+    const ticketId = request.Ticket_ID;
 
     const data = {
-      Ticket_ID: request.Ticket_ID,
       Ticket_Token:event.Ticket_Token,
     };
+
+    const url = `http://${ec2InstanceIp}:${ec2InstancePort}/api/tickets/${ticketId}/token`; // Replace with your API endpoint URL
 
     const response = await axios.post(url, data);
 
