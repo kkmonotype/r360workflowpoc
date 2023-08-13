@@ -13,18 +13,15 @@ module.exports = (sequelize, Sequelize) => {
       Employee_ID: {
         type: Sequelize.STRING,
       },
-      Ticket_Type: {
+      Employee_Type: {
         type: Sequelize.STRING,
       },
-      Ticket_Create_Date: {
+      Date_Assigned: {
         type: Sequelize.STRING,
       },
-      Created_By: {
+      Assigned_By: {
         type: Sequelize.STRING,
-      },
-      Parent_PSD_ID: {
-        type: Sequelize.STRING,
-      },
+      }
     },
     {
       freezeTableName: true,

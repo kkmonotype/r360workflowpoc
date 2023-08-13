@@ -1,10 +1,15 @@
-const { cohortAssignment, ticketRoleAssignment, mySqlORM } = require('../db')
+const {
+  cohortAssignment,
+  ticketRoleAssignment,
+  ticketUserAssignment,
+  mySqlORM,
+} = require('../db')
 const moment = require('moment')
 
 function TicketCohortRepo() {}
 
 // create or update ticket token
-TicketCohortRepo.prototype.cohortAssignment = async function (
+TicketCohortRepo.prototype.cohortLeadAssignment = async function (
   Ticket_ID,
   Sales_Rep
 ) {
@@ -28,13 +33,24 @@ TicketCohortRepo.prototype.cohortAssignment = async function (
       Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
     })
 
+    await ticketUserAssignment.create({
+      Ticket_ID: Ticket_ID,
+      Employee_ID: results[0].User_ID,
+      Employee_Type: results[0].Role,
+      Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
+      Assigned_By: 'System',
+    })
+
+
     // Assign cohort lead
     const instance2 = await ticketRoleAssignment.create({
       Ticket_ID: Ticket_ID,
       Department_ID: results[0].Employee_Department,
       Role_ID: results[0].Role,
       Date_Assigned: currentDate.format(process.env.MYSQL_DATE_FORMAT),
+      Assigned_By: 'System',
     })
+
 
     return instance && instance2
   }
