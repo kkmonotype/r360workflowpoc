@@ -112,9 +112,9 @@ router.post(
 
 // Assign ticket to role
 router.post(
-  '/api/tickets/:id/role',
+  '/api/tickets/role-assignment',
   wrapAsync(async (req, res) => {
-    const Ticket_ID = req.params.id
+    const Ticket_ID = req.body.Ticket_ID
     const Department_ID = req.body.Department_ID
     const Role_ID = req.body.Role_ID
     const Assigned_By = req.body.Assigned_By
@@ -137,9 +137,9 @@ router.post(
 
 // Assign ticket to user
 router.post(
-  '/api/tickets/:id/user',
+  '/api/tickets/user-assignment',
   wrapAsync(async (req, res) => {
-    const Ticket_ID = req.params.id
+    const Ticket_ID = req.body.Ticket_ID
     const Employee_ID = req.body.Employee_ID
     const Role_ID = req.body.Role_ID
     const Assigned_By = req.body.Assigned_By
