@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "2609c0d4-483c-4187-b4fb-f7315b7d4746",
+		"name": "Research360",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1762389"
+	},
+	"item": [
+		{
+			"name": "User Details By Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/david.kegelmayer@monotype.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"david.kegelmayer@monotype.com"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "User Details",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/users/david.kegelmayer@monotype.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users",
+								"david.kegelmayer@monotype.com"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "420"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1a4-I1cLnRzalVYA+a11M2zN8S8tCyw\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Aug 2023 08:02:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"User_PK\": 1,\n    \"User_ID\": \"0052R000009ycLxQAI\",\n    \"First_Name\": \"David\",\n    \"Last_Name\": \"Kegelmayer\",\n    \"Name\": \"David Kegelmayer\",\n    \"Email\": \"david.kegelmayer@monotype.com\",\n    \"Department\": \"Market Strategy & Sales\",\n    \"Role\": \"AMER Enterprise West Manager T1\",\n    \"Manager_Name\": \"Robert Castellucci\",\n    \"Manager_Id\": \"00544000008YE3eAAG\",\n    \"Date_Of_Joining\": \"2020-01-10T19:20:22.000+0000\",\n    \"IsActive\": \"TRUE\",\n    \"Profile_Name\": \"Sales Direct Manager Linkedin\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Ticket List",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "Ticket List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "12009"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2ee9-WD9c11BSh0IcG8VWChCKHr0fGo0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Aug 2023 08:03:35 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"Research_PK\": 5,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"<p>Hi There, </p><p><br></p><p>Can you please do a full account review on Procreate <a href=\\\"https://procreate.com/\\\"\\\" target=\\\"\\\"_blank\\\"\\\">https://procreate.com/ </a></p><p><br></p><p>Here is what I have found so far. </p><p><br></p><p>https://apps.apple.com/app/apple-store/id425073498</p><p><br></p><p>https://apps.apple.com/us/app/procreate-pocket/id916366645</p><p><br></p><p><br></p>\\\"\",\n        \"Researcher_ID\": \"Ishaan Vaid\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"Done\",\n        \"Webserver_Research_Review\": \"Done\",\n        \"Opportunity_Name\": \"Savage Interctive/Procreate - True Up, App License, Desktop, CS, MTF 3 Years\",\n        \"Opportunity_Close_Date\": \"30-03-2023\"\n    },\n    {\n        \"Research_PK\": 19,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"Progress\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 20,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 21,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 22,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 23,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 24,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 25,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 26,\n        \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043190\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"0054W00000EOabiQAD\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"Can you please do a full account review on Procreate?\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"\",\n        \"Websites_Research_Review\": \"Yes\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": null,\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"\",\n        \"Opportunity_Close_Date\": \"\"\n    },\n    {\n        \"Research_PK\": 6,\n        \"SF_Ticket_ID\": \"a4e4W000007EravQAC\",\n        \"Ticket_Priority\": \"Critical\",\n        \"PSD_Number\": \"PSD-043753\",\n        \"Account_ID\": \"00144000021njgAAAQ\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n        \"Sales_Comments\": \"<p>Hi There, </p><p><br></p><p>Can you please investigate &quot;Procreate&quot;. </p><p>Neil has approved to purchase the paid applications as the client has come to us directly regarding infringement. Here is what Ive found so far. </p><p><br></p><p>https://www.data.ai/apps/ios/app/425073498/details?</p><p><br></p><p>https://www.data.ai/apps/ios/app/916366645/details?</p><p><br></p><p>Thanks for all the help. </p><p><br></p><p>Ziad Hindi </p>\",\n        \"Researcher_ID\": \"Akanskhya Pani\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"YES\",\n        \"Websites_Research_Review\": \"\",\n        \"DigiAds_Research_Review\": \"\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"Savage Interctive/Procreate - True Up, App License, Desktop, CS, MTF 3 Years\",\n        \"Opportunity_Close_Date\": \"30-03-2023\"\n    },\n    {\n        \"Research_PK\": 2,\n        \"SF_Ticket_ID\": \"a4e4W000007Cf5YQAS\",\n        \"Ticket_Priority\": \"Normal\",\n        \"PSD_Number\": \"PSD-040409\",\n        \"Account_ID\": \"0014400001o7VxMAAU\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W00001Ez5sAQAR\",\n        \"Sales_Comments\": \"<p>Hi Team,</p><p><br></p><p>Please review Korn Ferry and all subsidiaries for website font usage. </p><p><br></p><p>https://app.zoominfo.com/#/apps/profile/company/80400120/locations?profileId=80400120&amp;checkProfileAccess=true</p><p><br></p><p>Please check for font usage in API/SDK software.</p><p><br></p><p>Please review the following applications:</p><p>https://www.data.ai/company/1000200000073330?device_code=all&amp;country_code=US&amp;date=!(%272022-10-01%27,%272022-12-31%27)&amp;granularity=monthly&amp;unified_category_id=800000</p><p><br></p><p>Please review there company(s) for editable forms and epublications. Along with digital ads. </p>\",\n        \"Researcher_ID\": \"Akriti Pandya\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"Done\",\n        \"Webserver_Research_Review\": \"Done\",\n        \"Opportunity_Name\": \"KornFerry Pula-EXT2_Plus_Desktop_EXT2_3_5_05.10.2023 - 05.09.2026\",\n        \"Opportunity_Close_Date\": \"05-05-2023\"\n    },\n    {\n        \"Research_PK\": 4,\n        \"SF_Ticket_ID\": \"a4e4W000007Bc2GQAS\",\n        \"Ticket_Priority\": \"Major\",\n        \"PSD_Number\": \"PSD-038791\",\n        \"Account_ID\": \"00144000020ltouAAA\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W00001Ezb75QAB\",\n        \"Sales_Comments\": \"\",\n        \"Researcher_ID\": \"Navya Goyal\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"Done\",\n        \"Webserver_Research_Review\": \"Done\",\n        \"Opportunity_Name\": \"FuboTV- Past Use, Additional PV & Server 2/28/2023 to 11/29/2024\",\n        \"Opportunity_Close_Date\": \"28-02-2023\"\n    },\n    {\n        \"Research_PK\": 8,\n        \"SF_Ticket_ID\": \"a4e4W000007B2xTQAS\",\n        \"Ticket_Priority\": \"Normal\",\n        \"PSD_Number\": \"PSD-038188\",\n        \"Account_ID\": \"001E000001fvD4qIAE\",\n        \"Ticket_Status\": \"Cancelled\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W000013v6w4QAA\",\n        \"Sales_Comments\": \"<p>Please can this research be redone in full as the last FUD was put together in 2021. Thank you - CANCELLED AS WONT GET RESEARCH BACK IN TIME</p>\",\n        \"Researcher_ID\": \"\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"YES\",\n        \"Websites_Research_Review\": \"YES\",\n        \"DigiAds_Research_Review\": \"YES\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"Ferguson plc - EXT2/3/4 PU - Aug 2021\",\n        \"Opportunity_Close_Date\": \"24-03-2023\"\n    },\n    {\n        \"Research_PK\": 7,\n        \"SF_Ticket_ID\": \"a4e4W000006jOVqQAM\",\n        \"Ticket_Priority\": \"Normal\",\n        \"PSD_Number\": \"PSD-019320\",\n        \"Account_ID\": \"001E000001fvD4qIAE\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W000013v6w4QAA\",\n        \"Sales_Comments\": \"<p>Hi, please can you conduct a full account review for this client for me? Thank you</p>\",\n        \"Researcher_ID\": \"Ishaan Vaid\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"Done\",\n        \"Opportunity_Name\": \"Ferguson plc - EXT2/3/4 PU - Aug 2021\",\n        \"Opportunity_Close_Date\": \"24-03-2023\"\n    },\n    {\n        \"Research_PK\": 1,\n        \"SF_Ticket_ID\": \"a4e4W000000Kr6WQAS\",\n        \"Ticket_Priority\": \"Normal\",\n        \"PSD_Number\": \"PSD-037851\",\n        \"Account_ID\": \"0012R000029J9BKQA0\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W00001EV2eLQAT\",\n        \"Sales_Comments\": \"<p>Hi Team,</p><p><br></p><p>I hope you are well.</p><p><br></p><p>Please could you look into Travelodge and any subsidiaries. I can see MT IP - DIN use on the we and some orders in MT Admin but cant extract them.</p><p><br></p><p>Thank you,</p><p><br></p><p>Adrian</p>\",\n        \"Researcher_ID\": \"Riya Himmatramka\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"\",\n        \"Opportunity_Name\": \"Travelodge - True Up & MTF (1 year)\",\n        \"Opportunity_Close_Date\": \"14-03-2023\"\n    },\n    {\n        \"Research_PK\": 3,\n        \"SF_Ticket_ID\": \"a4e4W000000Fh0eQAC\",\n        \"Ticket_Priority\": \"Normal\",\n        \"PSD_Number\": \"PSD-020122\",\n        \"Account_ID\": \"00144000020ltouAAA\",\n        \"Ticket_Status\": \"Completed\",\n        \"Call_Scheduled\": \"NO\",\n        \"Call_Scheduled_Date\": \"\",\n        \"Sales_Rep\": \"\",\n        \"Opportunity_ID\": \"0064W000015mwbWQAQ\",\n        \"Sales_Comments\": \"<p>Customer is using Qenelas fonts in web, mobile and server from my research. Also probably in digital adds as well. Need confirmation that is the case through a font use document.</p>\",\n        \"Researcher_ID\": \"Padmakshi .\",\n        \"Ticket_Type\": \"Account Research\",\n        \"Apps_Research_Review\": \"Done\",\n        \"Websites_Research_Review\": \"Done\",\n        \"DigiAds_Research_Review\": \"Done\",\n        \"ePubs_Research_Review\": \"\",\n        \"Webserver_Research_Review\": \"Done\",\n        \"Opportunity_Name\": \"FuboTV - Qenelas family - Monotype Fonts 11/30/21 to 11/29/2024\",\n        \"Opportunity_Close_Date\": \"03-12-2021\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Ticket Details",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "Ticket Details",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/tickets/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"tickets",
+								"5"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1044"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"414-ilqvRMPmZPUVROz8+i5qH7ULoC4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Aug 2023 08:04:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Research_PK\": 5,\n    \"SF_Ticket_ID\": \"a4e4W000007EWytQAG\",\n    \"Ticket_Priority\": \"Critical\",\n    \"PSD_Number\": \"PSD-043190\",\n    \"Account_ID\": \"00144000021njgAAAQ\",\n    \"Ticket_Status\": \"Completed\",\n    \"Call_Scheduled\": \"\",\n    \"Call_Scheduled_Date\": \"\",\n    \"Sales_Rep\": \"\",\n    \"Opportunity_ID\": \"0064W00001FtEnYQAV\",\n    \"Sales_Comments\": \"<p>Hi There, </p><p><br></p><p>Can you please do a full account review on Procreate <a href=\\\"https://procreate.com/\\\"\\\" target=\\\"\\\"_blank\\\"\\\">https://procreate.com/ </a></p><p><br></p><p>Here is what I have found so far. </p><p><br></p><p>https://apps.apple.com/app/apple-store/id425073498</p><p><br></p><p>https://apps.apple.com/us/app/procreate-pocket/id916366645</p><p><br></p><p><br></p>\\\"\",\n    \"Researcher_ID\": \"Ishaan Vaid\",\n    \"Ticket_Type\": \"Account Research\",\n    \"Apps_Research_Review\": \"Done\",\n    \"Websites_Research_Review\": \"Done\",\n    \"DigiAds_Research_Review\": \"Done\",\n    \"ePubs_Research_Review\": \"Done\",\n    \"Webserver_Research_Review\": \"Done\",\n    \"Opportunity_Name\": \"Savage Interctive/Procreate - True Up, App License, Desktop, CS, MTF 3 Years\",\n    \"Opportunity_Close_Date\": \"30-03-2023\"\n}"
+				}
+			]
+		}
+	]
+}

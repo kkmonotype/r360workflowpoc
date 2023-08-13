@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,3 +27,29 @@
     transform: rotate(360deg);
   }
 }
+
+.ar-slect{
+  min-width: 180px;
+  border: 1px solid #ddd !important;
+  height: 40px;
+  border-radius: 3px;
+}
+
+.task-box{
+  display: flex;
+  justify-content: space-between;
+  padding: 1.4rem 2.2rem 1.25rem 1.25rem;
+  width: 100%;
+  margin-left: 12px;
+  
+}
+.task-ticket-details{
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  color: #999999;
+  margin-bottom: 0.69rem;
+
+}
+
