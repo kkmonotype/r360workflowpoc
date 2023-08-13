@@ -1,7 +1,13 @@
 import React from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 import ProgressBar from './ProgressBar';
-import Select from './Select';
+import {
+    Container,
+    Typography,
+    Select,
+    MenuItem,
+    Button,
+  } from '@material-ui/core';
 
 const TableReusable = ({ data, tdstyles, modifyHeader = (val) => val }) => {
 
@@ -22,7 +28,9 @@ const TableReusable = ({ data, tdstyles, modifyHeader = (val) => val }) => {
             </div>
           ) : (
             key === 'Assigned_To' ? (
-              <Select options={[{ value: el[key], label: el[key] }]} value={el[key]} onChange={handleSelectChange} />
+              <Select 
+              style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+              options={[{ value: el[key], label: el[key] }]} value={el[key]} onChange={handleSelectChange} />
             ) : (
               <label style={{ marginLeft: 5 }}>{el[key]}</label>
             )

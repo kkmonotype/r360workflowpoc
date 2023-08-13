@@ -7,6 +7,7 @@ import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import AllTickets from './pages/AllTickets';
 import TaskAssignment from './pages/TaskAssignment';
+import Tasks from './pages/Tasks';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/researcher" element={<ResearcherPage />} />
                 <Route path="/tickets" element={<AllTickets />} />
                 <Route path="/task-assignment" element={<TaskAssignment />} />
+                <Route path="/tasks" element={<Tasks />} />
               </>
             )}
         </Routes>

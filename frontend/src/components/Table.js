@@ -3,6 +3,10 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import { Link } from 'react-router-dom';
 
 const CustomTable = ({ data }) => {
+    const handleStatus=()=>{
+console.log('status')
+
+    }
   return (
     <TableContainer component={Paper} className="w-full overflow-x-auto">
       <Table className="w-full">
@@ -12,6 +16,7 @@ const CustomTable = ({ data }) => {
             <TableCell className="px-4 py-2">Priority</TableCell>
             <TableCell className="px-4 py-2">Account</TableCell>
             <TableCell className="px-4 py-2">Sales</TableCell>
+            <TableCell className="px-4 py-2">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -25,6 +30,11 @@ const CustomTable = ({ data }) => {
               <TableCell className="border px-4 py-2">{d.Priority}</TableCell>
               <TableCell className="border px-4 py-2">{d.Account}</TableCell>
               <TableCell className="border px-4 py-2">{d.Sales_Rep}</TableCell>
+              <TableCell className="border px-4 py-2">
+                <Button size="large" color="inherit" component={Link} to="/tasks" onClick={handleStatus} >
+                  Start
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

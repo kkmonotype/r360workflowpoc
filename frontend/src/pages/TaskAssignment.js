@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   taskDetails: {
     display: 'flex',
-    justifyContent:"space-between",
+    // justifyContent:"space-between",
+    flexDirection: 'column',
+
     marginBottom: theme.spacing(2),
     width: '100%',
   },
@@ -33,9 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
   taskHeading: {
     fontWeight: 'bold',
+    paddingLeft:'6px'
   },
   taskInfo: {
     marginLeft: theme.spacing(1),
+    color: "#444",
+    fontWeight: "600",
+    paddingTop:'10px'
   },
   completionContainer: {
     display: 'flex',
@@ -91,26 +97,39 @@ const TaskAssignment = () => {
 
   return (
     <Container className={classes.taskAssignmentContainer}>
-      <div className={classes.taskDetails}>
-        <div>
+      <div className="task-box">
+        <div className='task-ticket-details'>
           <Typography className={classes.taskHeading}>Ticket ID</Typography>
           <Typography className={classes.taskInfo}>PSD-29610</Typography>
         </div>
-        <div>
+        <div className='task-ticket-details'>
           <Typography className={classes.taskHeading}>Account Name</Typography>
           <Typography className={classes.taskInfo}>Netflix</Typography>
         </div>
-        <div className={classes.completionContainer}>
+        <div className={`className='task-ticket-details`}>
           <Typography className={classes.taskHeading}>Completion</Typography>
           <ProgressBar completion={completionStatus} />
           <Typography className={classes.completionStatus}>
             {completionStatus}%
           </Typography>
-        </div>
+        </div>        
       </div>
+      
+      <div className={classes.assignResearcher}>
+        <Typography className={classes.taskHeading}>Assign Role</Typography>
+        <Select className="mt-1 form-select ar-select w-full border-spacing-1"
+        style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+         value={""} onChange={(e) => e.target.value}>
+          <MenuItem value="Riya">Editor</MenuItem>
+        </Select>
+      </div>
+
       <div className={classes.assignResearcher}>
         <Typography className={classes.taskHeading}>Assign Researcher</Typography>
-        <Select className="mt-1 form-select ar-select w-full" value={""} onChange={(e) => e.target.value}>
+        <Select className="mt-1 form-select ar-select w-full"
+                style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+
+        value={""} onChange={(e) => e.target.value}>
           <MenuItem value="Riya">Riya</MenuItem>
         </Select>
       </div>
@@ -118,6 +137,7 @@ const TaskAssignment = () => {
         <Typography className={classes.taskHeading}>Assign Tasks</Typography>
         <Checkbox label="" isChecked={isChecked} onChange={handleCheckboxChange} />
       </div>
+      
       {isChecked && (
         <div className={classes.taskDetails}>
           <TableReusable data={tasks} tdstyles="tdstyles" />
