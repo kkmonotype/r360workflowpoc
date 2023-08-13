@@ -15,6 +15,12 @@ TicketTokenRepo.prototype.createOrUpdateTicketToken = async function (Ticket_ID,
   }
 }
 
+// get ticket token
+TicketTokenRepo.prototype.getTicketToken = async function (Ticket_ID) {
+  const instances = await ticketToken.findOne({ where: { Ticket_ID: Ticket_ID } })
+  return instances ? instances.toJSON() : []
+}
+
 // TicketTokenRepo.prototype.updateToken = async function (Email) {
 //   const instances = await Employee.findOne({ where: { Email: Email } })
 //   return instances ? instances.toJSON() : []

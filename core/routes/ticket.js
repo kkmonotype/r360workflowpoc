@@ -25,6 +25,17 @@ router.get(
   })
 )
 
+// Get ticket token using get
+router.get(
+  '/api/tickets/:id/token',
+  wrapAsync(async (req, res) => {
+    // get from query params
+    const Ticket_ID = req.params.id
+    const ticketToken = await ticketTokenRepo.getTicketToken(Ticket_ID)
+    res.send(ticketToken)
+  })
+)
+
 router.post(
   '/api/tickets/research',
   wrapAsync(async (req, res) => {
