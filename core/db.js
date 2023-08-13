@@ -33,6 +33,7 @@ db.cohortMaster = require('./tables/cohortMaster')(mySqlORM, Sequelize)
 db.cohortEmployee = require('./tables/cohortEmployee')(mySqlORM, Sequelize)
 db.cohortAssignment = require('./tables/cohortAssignment')(mySqlORM, Sequelize)
 db.ticketRoleAssignment = require('./tables/ticketRoleAssignment')(mySqlORM, Sequelize)
+db.ticketUserAssignment = require('./tables/ticketUserAssignment')(mySqlORM, Sequelize)
 db.ticketToken = require('./tables/ticketToken')(mySqlORM, Sequelize)
 db.ticketStatus = require('./tables/ticketStatus')(mySqlORM, Sequelize)
 db.mySqlORM = mySqlORM

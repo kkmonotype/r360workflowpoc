@@ -8,7 +8,7 @@ router.post(
   wrapAsync(async (req, res) => {
     const { Ticket_ID, Sales_Rep } = req.body
 
-    const result = await TicketCohortRepo.cohortAssignment(
+    const result = await TicketCohortRepo.cohortLeadAssignment(
       Ticket_ID, Sales_Rep
     )
     res.send(result).status(201)
