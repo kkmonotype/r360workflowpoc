@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       Employee_ID: {
         type: Sequelize.STRING,
       },
-      Ticket_Type: {
+      Employee_Type: {
         type: Sequelize.STRING,
       },
       Ticket_Create_Date: {
