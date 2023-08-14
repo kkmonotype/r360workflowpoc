@@ -11,6 +11,10 @@ import {
   MenuItem,
   Button,
 } from '@material-ui/core';
+import { Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { green } from '@mui/material/colors';
+
 
 const useStyles = makeStyles((theme) => ({
   taskAssignmentContainer: {
@@ -92,20 +96,37 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskAssignment = () => {
   const classes = useStyles();
-  const [completionStatus, setCompletionStatus] = useState(40);
+  const [completionStatus, setCompletionStatus] = useState(0);
   const [tasks, setTasks] = useState(taskData);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+  const[userData,setUserData]=useState({})
 
   const [roles,setRoles]=useState([]);
   const [members,setMembers]=useState([]);
+  const [member_name,setMemberName]=useState('');
   const [role,setRole]=useState('');
   const [member,setMember]=useState('');
+  const [successmessage,setMessage]=useState('');
+  const[user,setUser]=useState([]);
+  const { ticketId } = useParams();
+  const [tickets,setTickets]=useState({});
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+  async function fetchUserInfo() {
 
- 
+  const response = await fetch(`http://localhost:4000/api/users/david.kegelmayer@monotype.com`);
+  const data = await response.json();
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+  }
+
+  setUserData(data);
+
+  }
+  
 
   async function fetchRoles() {
     const url = 'http://localhost:4000/api/users-roles';
@@ -135,6 +156,36 @@ const TaskAssignment = () => {
     }
   }
 
+  async function fetchTicketData() {
+    const url = 'http://localhost:4000/api/tickets/'+ticketId;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setTickets(data); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  // async function handleResearcher(){
+
+  //   const url = 'http://localhost:4000/api/tickets/role-assignment';
+  //   try {
+  //     const response = await fetch(url);
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     const data = await response.json();
+  //     setMembers(data); 
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+
+  // }
+
   const handleSubmit = async () => {
  
     const response = await fetch(`http://localhost:4000/api/tickets/user-assignment`, {
@@ -143,20 +194,24 @@ const TaskAssignment = () => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "Ticket_ID": Ticket_ID,
-          "Role_ID": member,
-          "Employee_ID": "005E0000000ZEXNIA9",
-          "Assigned_By": "0054W00000ENuj4QAD"
+          "Ticket_ID": ticketId,
+          "Role_ID": "Team Member",
+          "Employee_ID": member,
+          "Assigned_By": userData.User_ID
       }),
     });
     const data = await response.json();
 
-    setMessage(data.message);
+    setMessage("TICKET ASSIGNED SUCCESSFULLY!");
 };
 
   useEffect(() => {
     fetchRoles();
     fetchMembers();
+    fetchUserInfo();
+    fetchTicketData();
+     setUser(localStorage.getItem("userdata"));
+    console.log(userData,'55555')
   }, []); 
 
   return (
@@ -164,22 +219,26 @@ const TaskAssignment = () => {
       <div className="task-box">
         <div className='task-ticket-details'>
           <Typography className={classes.taskHeading}>Ticket ID</Typography>
-          <Typography className={classes.taskInfo}>PSD-29610</Typography>
+          <Typography className={classes.taskInfo}>{tickets.PSD_Number}</Typography>
         </div>
         <div className='task-ticket-details'>
           <Typography className={classes.taskHeading}>Account Name</Typography>
-          <Typography className={classes.taskInfo}>Netflix</Typography>
+          <Typography className={classes.taskInfo}>{tickets.Account_ID}</Typography>
         </div>
         <div className={`className='task-ticket-details`}>
           <Typography className={classes.taskHeading}>Completion</Typography>
-          <ProgressBar completion={completionStatus} style={{marginTop:"15px"}}/>
+          <ProgressBar 
+          //completion={completionStatus} 
+          completion={tickets.Ticket_Status==="Assigned"?"0":tickets.Ticket_Status==="Completed"?"100":"0"}
+          style={{marginTop:"15px"}}/>
           <Typography className={classes.completionStatus}>
-            {completionStatus}%
+            {/* {completionStatus}% */}
+            {tickets.Ticket_Status==="Assigned"?"In Progress":tickets.Ticket_Status==="Completed"?"100%":"0%"}
           </Typography>
         </div>        
       </div>
       
-      <div className={classes.assignResearcher}>
+      {/* <div className={classes.assignResearcher}>
         <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{role}</span></Typography>
         <Select className="mt-1 form-select ar-select w-full border-spacing-1"
         style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
@@ -189,16 +248,23 @@ const TaskAssignment = () => {
           })}
           
         </Select>
-      </div>
+      </div> */}
 
       <div className={classes.assignResearcher}>
-        <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member}</span></Typography>
+        <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member_name}</span></Typography>
         <Select className="mt-1 form-select ar-select w-full"
-                style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+          style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+          value={""} 
+          onChange={(e) => {
+            let AData=e.target.value;
+            let Aname=AData.split('-')
 
-        value={""} onChange={(e) => setMember(e.target.value)}>
+            setMember(Aname[0])
+            setMemberName(Aname[1])
+           // handleResearcher()
+            }}>
            {members.map((e)=>{
-            return(<MenuItem value={e.User_ID}>{e.Name}</MenuItem>)
+            return(<MenuItem value={e.User_ID+'-'+e.Name}>{e.Name}</MenuItem>)
           })}
         </Select>
       </div>
@@ -209,10 +275,12 @@ const TaskAssignment = () => {
       
       {isChecked && (
         <div className={classes.taskDetails}>
-          <TableReusable data={tasks} val={member} tdstyles="tdstyles" />
+          <TableReusable data={tasks} val={member_name} TicketStatus={tickets.Ticket_Status} tdstyles="tdstyles" />
         </div>
       )}
-      <div className={classes.buttonContainer}>
+      {
+        successmessage?<p style={{color:"#72c323", fontSize:"24px",fontWeight:"600"}}>{successmessage}</p>:
+        <div className={classes.buttonContainer}>
         <Button
           type="submit"
           className={`${classes.nextButton} px-4 py-2`}
@@ -229,6 +297,8 @@ const TaskAssignment = () => {
           Cancel
         </Button>
       </div>
+        }
+      
     </Container>
   );
 };
