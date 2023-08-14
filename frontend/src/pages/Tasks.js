@@ -15,6 +15,19 @@ const muiCache = createCache({
   prepend: true
 });
 
+const CustomToolbar = () => {
+  return (
+    <div>
+      {/* <IconButton onClick={() => handleAddRow()}>
+        <AddIcon />
+      </IconButton>
+      <IconButton onClick={() => handleDeleteRow()}>
+        <DeleteIcon />
+      </IconButton> */}
+    </div>
+  );
+};
+
 export default function Tasks() {
   const [responsive, setResponsive] = useState("vertical");
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
@@ -31,21 +44,24 @@ export default function Tasks() {
     "Location"
   ];
 
-  // const options = {
-  //   search: searchBtn,
-  //   download: downloadBtn,
-  //   print: printBtn,
-  //   viewColumns: viewColumnBtn,
-  //   filter: filterBtn,
-  //   filterType: "dropdown",
-  //   responsive,
-  //   tableBodyHeight,
-  //   tableBodyMaxHeight,
-  //   onTableChange: (action, state) => {
-  //     console.log(action);
-  //     console.dir(state);
-  //   }
-  // };
+  const options = {
+    customToolbar: () => {
+      return <CustomToolbar />;
+    },
+    // search: searchBtn,
+    // download: downloadBtn,
+    // print: printBtn,
+    // viewColumns: viewColumnBtn,
+    // filter: filterBtn,
+    // filterType: "dropdown",
+    // responsive,
+    // tableBodyHeight,
+    // tableBodyMaxHeight,
+    // onTableChange: (action, state) => {
+    //   console.log(action);
+    //   console.dir(state);
+    // }
+  };
 
   const data = [
     ["Gabby George", "Business Analyst", "Minneapolis"],

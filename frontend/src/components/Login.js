@@ -1,52 +1,35 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Paper, Typography, TextField, Button, Grid } from '@mui/material';
-// import { useNavigate,Navigate } from 'react-router-dom';
-
 
 const Login = () => {
-   // const [isLoggedIn, setisLoggedIn] = useState(false);
-//    const navigate = useNavigate();
+   const [isLoggedIn, setisLoggedIn] = useState(false);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const[userData,setUserData]=useState({})
 
 
 const handleLogin = async (event) => {
-    event.preventDefault();
+     event.preventDefault();
     try {
-    //   const response = await fetch('http://localhost:4000/auth/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   });
-
-    //   if (!response.ok) {
-    //     const errorData = await response.json();
-    //     throw new Error(errorData.message);
-    //   }
-      //setisLoggedIn(true)
-      localStorage.setItem('loggedIn', "true");
-      window.location.href='/home'
-      localStorage.setItem('username', username);
-
+      const response = await fetch(`http://localhost:4000/api/users/david.kegelmayer@monotype.com`);
+    const data = await response.json();
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+ 
+    setUserData(data);
+     localStorage.setItem('loggedIn', "true");
+     localStorage.setItem('username', username);
+    localStorage.setItem('userdata', userData);
+     window.location.href='/home';
       alert('Login successful!');
     } catch (error) {
       alert('Login failed: ' + error);
     }
   };
-
-//   useEffect(()=>{
-//     const loggedIn=localStorage.getItem('loggedIn')
- 
-//     if(loggedIn==='true'){
-//         navigate('/');
-//     }else{
-//         navigate('/login');
-//     }
-
-//   },[navigate])
+  
 
 
   return (
