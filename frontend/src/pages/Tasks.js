@@ -29,20 +29,27 @@ const CustomToolbar = () => {
 };
 
 export default function Tasks() {
-  const [responsive, setResponsive] = useState("vertical");
-  const [tableBodyHeight, setTableBodyHeight] = useState("400px");
-  const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
-  const [searchBtn, setSearchBtn] = useState(false);
-  const [downloadBtn, setDownloadBtn] = useState(false);
-  const [printBtn, setPrintBtn] = useState(false);
-  const [viewColumnBtn, setViewColumnBtn] = useState(false);
-  const [filterBtn, setFilterBtn] = useState(false);
+  // const [responsive, setResponsive] = useState("vertical");
+  // const [tableBodyHeight, setTableBodyHeight] = useState("400px");
+  // const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
+  // const [searchBtn, setSearchBtn] = useState(false);
+  // const [downloadBtn, setDownloadBtn] = useState(false);
+  // const [printBtn, setPrintBtn] = useState(false);
+  // const [viewColumnBtn, setViewColumnBtn] = useState(false);
+  // const [filterBtn, setFilterBtn] = useState(false);
 
   const columns = [
-    { name: "Name", options: { filterOptions: { fullWidth: true } } },
-    "Title",
-    "Location"
+    // { Task_ID: "Task_ID", 
+    // options: {  } },
+    "Task_ID",
+    "Ticket_ID",
+    "Task_Category",
+    "Task_Name",
+    "Employee_ID",
+    "Date_Assigned",
+    "Assigned_By"
   ];
+
 
   const options = {
     customToolbar: () => {
@@ -64,35 +71,25 @@ export default function Tasks() {
   };
 
   const data = [
-    ["Gabby George", "Business Analyst", "Minneapolis"],
-    [
-      "Aiden Lloyd",
-      "Business Consultant for an International Company and CEO of Tony's Burger Palace",
-      "Dallas"
-    ],
-    ["Jaden Collins", "Attorney", "Santa Ana"],
-    ["Franky Rees", "Business Analyst", "St. Petersburg"],
-    ["Aaren Rose", null, "Toledo"],
-    ["Johnny Jones", "Business Analyst", "St. Petersburg"],
-    ["Jimmy Johns", "Business Analyst", "Baltimore"],
-    ["Jack Jackson", "Business Analyst", "El Paso"],
-    ["Joe Jones", "Computer Programmer", "El Paso"],
-    ["Jacky Jackson", "Business Consultant", "Baltimore"],
-    ["Jo Jo", "Software Developer", "Washington DC"],
-    ["Donna Marie", "Business Manager", "Annapolis"]
+    ["a4e4W000000Kr6WQAS-T01", "T01", "Legal Entity Map","Legal Entity Map","005E0000000ZEXNIA4","07-10-2019","Matt"],
+ 
   ];
 
   return (
-    <CacheProvider value={muiCache}>
+    <div style={{marginTop:"40px"}}>
+<CacheProvider value={muiCache}>
       <ThemeProvider theme={createTheme()}>
         <MUIDataTable
           title={"PSD-19620"}
           data={data}
           columns={columns}
           //options={options}
+          
         />
       </ThemeProvider>
     </CacheProvider>
+    </div>
+    
   );
 }
 

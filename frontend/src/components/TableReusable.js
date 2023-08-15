@@ -9,7 +9,7 @@ import {
     Button,
   } from '@material-ui/core';
 
-const TableReusable = ({ data, tdstyles,val, modifyHeader = (val) => val }) => {
+const TableReusable = ({ data, tdstyles,val,TicketStatus, modifyHeader = (val) => val }) => {
 
   const handleSelectChange = (e) => {
     console.log(e.target.value);
@@ -24,7 +24,9 @@ const TableReusable = ({ data, tdstyles,val, modifyHeader = (val) => val }) => {
           {key === 'Completion_Status' ? (
             <div>
               <ProgressBar completion={el['Completion_Status']} />
-              <span className='completion-status'>{el['Completion_Status']}%</span>
+              {/* <span className='completion-status'>{el['Completion_Status']}%</span> */}
+             <span className='completion-status'> {TicketStatus==="Assigned"?"In Progress":TicketStatus==="Completed"?"100%":"0%"}</span>
+
             </div>
           ) : (
             key === 'Assigned_To' ? (

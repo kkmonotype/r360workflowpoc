@@ -12,7 +12,7 @@ import Tasks from './pages/Tasks';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
-
+  
   useEffect(()=>{
     const loggedIn=localStorage.getItem('loggedIn')
  
@@ -42,7 +42,7 @@ function App() {
                 <Route path="/lead" element={<LeadPage />} />
                 <Route path="/researcher" element={<ResearcherPage />} />
                 <Route path="/tickets" element={<AllTickets />} />
-                <Route path="/task-assignment" element={<TaskAssignment />} />
+                <Route path="/tickets/:ticketId" element={<TaskAssignment />} />
                 <Route path="/tasks" element={<Tasks />} />
               </>
             )}           
