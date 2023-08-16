@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.4.0"
+    "@aws-sdk/client-sqs": "^3.391.0",
+    "aws-sdk": "^2.1436.0",
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1"
   }
 }
