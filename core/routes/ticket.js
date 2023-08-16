@@ -1,4 +1,6 @@
 let express = require('express')
+const SqsService = require('../scheduler/sqsService')
+
 let router = express.Router()
 const researchPSDRepo = require('../repositories/researchPSDRepositories.js')
 const ticketTokenRepo = require('../repositories/ticketTokenRepo.js')
@@ -128,8 +130,30 @@ router.post(
 
     if (result) {
       await researchPSDRepo.updateTicketStatus(Ticket_ID, 'Open')
-
       await ticketStatusRepo.creatTicketStatus(Ticket_ID, 'Open', Assigned_By)
+
+      // Get ticket token using axios get
+      const ticketTokenDetails = await ticketTokenRepo.getTicketToken(Ticket_ID)
+
+      console.log(ticketTokenDetails)
+      console.log(ticketTokenDetails.Ticket_Token)
+      
+      // Callback step function with ticket token
+      const currentTime = new Date().toISOString()
+      const callbackQueue =
+        'https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo'
+      // Send message to callback queue
+      await SqsService.sendMessage(
+        JSON.stringify({
+          taskToken: ticketTokenDetails.Ticket_Token,
+          R360_PSD_ID: 'Test',
+          Department_ID: result.Department_ID ?? '',
+          timestamp: currentTime,
+          status: 'approved',
+          escalation: 'false',
+        }),
+        callbackQueue
+      )
     }
     res.send(result)
   })
