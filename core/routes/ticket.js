@@ -183,6 +183,29 @@ router.post(
         'Assigned',
         Assigned_By
       )
+    
+      // Get ticket token using axios get
+      const ticketTokenDetails = await ticketTokenRepo.getTicketToken(Ticket_ID)
+
+      console.log(ticketTokenDetails)
+      console.log(ticketTokenDetails.Ticket_Token)
+      
+      // Callback step function with ticket token
+      const currentTime = new Date().toISOString()
+      const callbackQueue =
+        'https://sqs.us-east-1.amazonaws.com/450512176569/R360CallbackQueue.fifo'
+      // Send message to callback queue
+      await SqsService.sendMessage(
+        JSON.stringify({
+          taskToken: ticketTokenDetails.Ticket_Token,
+          R360_PSD_ID: 'Test',
+          Employee_ID: result.Employee_ID ?? '',
+          timestamp: currentTime,
+          status: 'approved',
+          escalation: 'false',
+        }),
+        callbackQueue
+      )
     }
     res.send(result)
   })
