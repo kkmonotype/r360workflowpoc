@@ -9,12 +9,12 @@ ResearchPSDRepository.prototype.getResearchTickets = async function (
   if ('' !== status) {
     const instances = await researchPSD.findAll({
       where: { Ticket_Status: status },
-      order: [['Ticket_ID', 'DESC']],
+      order: [['Research_PK', 'DESC']],
     })
     return instances ? instances.map((instance) => instance.toJSON()) : []
   } else {
     const instances = await researchPSD.findAll({
-      order: [['Ticket_ID', 'DESC']],
+      order: [['Research_PK', 'DESC']],
     })
     return instances ? instances.map((instance) => instance.toJSON()) : []
   }
