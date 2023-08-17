@@ -56,7 +56,7 @@ const CustomTable = ({ data }) => {
             <TableCell className="px-4 py-2">Account</TableCell>
             <TableCell className="px-4 py-2">Sales</TableCell>
             <TableCell className="px-4 py-2">Status</TableCell>
-            <TableCell className="px-4 py-2">Action</TableCell>
+            {/* <TableCell className="px-4 py-2">Action</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -72,12 +72,12 @@ const CustomTable = ({ data }) => {
               <TableCell className="border px-4 py-2">{d.Account_ID}</TableCell>
               <TableCell className="border px-4 py-2">{d.Sales_Rep}</TableCell>
               <TableCell className="border px-4 py-2">{d.Ticket_Status!==""?d.Ticket_Status:""}</TableCell>
-              <TableCell className="border px-4 py-2">
+              {/* <TableCell className="border px-4 py-2">
                 <Button size="large" color="primary" component={Link} to="/tasks"
                  style={{border:"0px solid skyblue",color:"skyblue"}}>
                    {d.Ticket_Status==="Assigned"?<span onClick={handleStatus(d.Research_PK,"Progress")}>Start</span>:d.Ticket_Status==="Progress"?<span>Complete</span>:" "}
                 </Button>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>

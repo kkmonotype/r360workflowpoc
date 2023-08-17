@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 import ProgressBar from './ProgressBar';
 import {
@@ -9,7 +9,10 @@ import {
     Button,
   } from '@material-ui/core';
 
-const TableReusable = ({ data, tdstyles,val,TicketStatus, modifyHeader = (val) => val }) => {
+const TableReusable = ({ data, tdstyles,val,TicketStatus,members, modifyHeader = (val) => val }) => {
+
+  const [member_name,setMemberName]=useState('');
+  const [member,setMember]=useState('');
 
   const handleSelectChange = (e) => {
     console.log(e.target.value);
@@ -30,13 +33,25 @@ const TableReusable = ({ data, tdstyles,val,TicketStatus, modifyHeader = (val) =
             </div>
           ) : (
             key === 'Assigned_To' ? (
-              // <Select 
-              // style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
-              // options={[{ value: el[key], label: el[key] }]} 
-              // // value={el[key]} 
-              // value={val}
-              // onChange={handleSelectChange} />
-              <label style={{ marginLeft: 5 }}>{val}</label>
+          //     <Select 
+          //     style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+          //     options={[{ value: el[key], label: el[key] }]} 
+          //     // value={el[key]} 
+          //     value={val}
+          //     //onChange={handleSelectChange} 
+          //     onChange={(e) => {
+          //         let AData=e.target.value;
+          //         let Aname=AData.split('-')
+
+          //         setMember(Aname[0])
+          //         setMemberName(Aname[1])
+          //         }}   
+          //     >
+          //        {members.map((e)=>{
+          //   return(<MenuItem value={e.User_ID+'-'+e.Name}>{e.Name}</MenuItem>)
+          // })}
+          // </Select>
+               <label style={{ marginLeft: 5 }}>{val}</label>
               
             ) : (
               <label style={{ marginLeft: 5 }}>{el[key]}</label>

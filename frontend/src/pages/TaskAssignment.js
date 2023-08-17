@@ -104,9 +104,11 @@ const TaskAssignment = () => {
   const [roles,setRoles]=useState([]);
   const [members,setMembers]=useState([]);
   const [member_name,setMemberName]=useState('');
-  const [role,setRole]=useState('');
   const [member,setMember]=useState('');
+  const [role,setRole]=useState('');
+  
   const [successmessage,setMessage]=useState('');
+  const [rolemessage,setRoleMessage]=useState('');
   const[user,setUser]=useState([]);
   const { ticketId } = useParams();
   const [tickets,setTickets]=useState({});
@@ -170,23 +172,28 @@ const TaskAssignment = () => {
     }
   }
 
-  // async function handleResearcher(){
+  async function handleRoleAssignment(e){
+console.log(e.target.value,'Department_ID===')
+    const response = await fetch(`http://localhost:4000/api/tickets/role-assignment`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          "Ticket_ID": ticketId,
+          "Department_ID": e.target.value,
+          "Role_ID": "Team Member",   
+          "Assigned_By": userData.User_ID
+        }),
+  });
+  const data = await response.json();
 
-  //   const url = 'http://localhost:4000/api/tickets/role-assignment';
-  //   try {
-  //     const response = await fetch(url);
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const data = await response.json();
-  //     setMembers(data); 
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
+  setRoleMessage("Role Assigned Succesfully!");
 
-  // }
+  }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
  
     const response = await fetch(`http://localhost:4000/api/tickets/user-assignment`, {
         method: "POST",
@@ -238,22 +245,22 @@ const TaskAssignment = () => {
         </div>        
       </div>
       
-      {/* <div className={classes.assignResearcher}>
-        <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{role}</span></Typography>
-        <Select className="mt-1 form-select ar-select w-full border-spacing-1"
-        style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
-         value={""} onChange={(e) => setRole(e.target.value)}>
+      <div className={classes.assignResearcher}>
+        <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{rolemessage}</span></Typography>
+        <select className="mt-1 form-select ar-select w-full border-spacing-1"
+        style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
+         value={""} 
+          onChange={(e)=>handleRoleAssignment(e)} >
           {roles.map((e)=>{
-            return(<MenuItem value={e.name}>{e.name}</MenuItem>)
+            return(<option value={e.department}>{e.name}</option>)
           })}
-          
-        </Select>
-      </div> */}
+        </select>
+      </div>
 
       <div className={classes.assignResearcher}>
         <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member_name}</span></Typography>
-        <Select className="mt-1 form-select ar-select w-full"
-          style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px' }}
+        <select className="mt-1 form-select ar-select w-full"
+          style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
           value={""} 
           onChange={(e) => {
             let AData=e.target.value;
@@ -261,12 +268,11 @@ const TaskAssignment = () => {
 
             setMember(Aname[0])
             setMemberName(Aname[1])
-           // handleResearcher()
             }}>
            {members.map((e)=>{
-            return(<MenuItem value={e.User_ID+'-'+e.Name}>{e.Name}</MenuItem>)
+            return(<option value={e.User_ID+'-'+e.Name}>{e.Name}</option>)
           })}
-        </Select>
+        </select>
       </div>
       <div className={classes.assignTasks}>
         <Typography className={classes.taskHeading}>Assign Tasks</Typography>
@@ -275,7 +281,7 @@ const TaskAssignment = () => {
       
       {isChecked && (
         <div className={classes.taskDetails}>
-          <TableReusable data={tasks} val={member_name} TicketStatus={tickets.Ticket_Status} tdstyles="tdstyles" />
+          <TableReusable data={tasks} val={member_name} TicketStatus={tickets.Ticket_Status} members={members} tdstyles="tdstyles" />
         </div>
       )}
       {

@@ -33,6 +33,7 @@
   border: 1px solid #ddd !important;
   height: 40px;
   border-radius: 3px;
+  padding-left: 6px;
 }
 
 .task-box{
@@ -51,6 +52,34 @@
   color: #999999;
   margin-bottom: 0.69rem;
 
+}
+
+.tab-heading{
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+}
+
+.tab-subtitle{
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px;
+  color: #999999;
+}
+
+.custom-tabs{
+  display: flex;
+  align-items: left;
+  border-bottom: 1px solid #e7dcdc;
+  padding: 10px;
+  /* width: 200px;
+  height: 200px; */
+}
+
+.tab-content{
+  margin: 24px;
 }
 
 .tss-qbo1l6-MUIDataTableToolbar-actions{
