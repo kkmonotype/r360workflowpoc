@@ -245,7 +245,7 @@ console.log(e.target.value,'Department_ID===')
         </div>        
       </div>
       
-      <div className={classes.assignResearcher}>
+      {member_name!==''?"":<div className={classes.assignResearcher}>
         <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{rolemessage}</span></Typography>
         <select className="mt-1 form-select ar-select w-full border-spacing-1"
         style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
@@ -256,9 +256,11 @@ console.log(e.target.value,'Department_ID===')
             return(<option value={e.department}>{e.name}</option>)
           })}
         </select>
-      </div>
+      </div>}
+      
 
-      <div className={classes.assignResearcher}>
+
+          {rolemessage==='Role Assigned Succesfully!'?"":<div className={classes.assignResearcher}>
         <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member_name}</span></Typography>
         <select className="mt-1 form-select ar-select w-full"
           style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
@@ -274,7 +276,9 @@ console.log(e.target.value,'Department_ID===')
             return(<option value={e.User_ID+'-'+e.Name}>{e.Name}</option>)
           })}
         </select>
-      </div>
+      </div>}
+      
+
       <div className={classes.assignTasks}>
         <Typography className={classes.taskHeading}>Assign Tasks</Typography>
         <Checkbox label="" isChecked={isChecked} onChange={handleCheckboxChange} />
