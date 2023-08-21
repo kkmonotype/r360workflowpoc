@@ -249,8 +249,9 @@ console.log(e.target.value,'Department_ID===')
         <Typography className={classes.taskHeading}>Assign Role:<span style={{color:"green",fontSize:"13px"}}>{rolemessage}</span></Typography>
         <select className="mt-1 form-select ar-select w-full border-spacing-1"
         style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
-         value={""} 
-          onChange={(e)=>handleRoleAssignment(e)} >
+          onChange={(e)=>handleRoleAssignment(e)} 
+          >
+            <option value="Select Role" selected disabled>Select Role</option>
           {roles.map((e)=>{
             return(<option value={e.department}>{e.name}</option>)
           })}
@@ -261,15 +262,15 @@ console.log(e.target.value,'Department_ID===')
         <Typography className={classes.taskHeading}>Assign Researcher:<span style={{color:"green",fontSize:"13px"}}>{member_name}</span></Typography>
         <select className="mt-1 form-select ar-select w-full"
           style={{ minWidth: '180px', border: '1px solid #ddd', height: '40px', borderRadius: '3px',paddingLeft:"6px" }}
-          value={""} 
           onChange={(e) => {
             let AData=e.target.value;
             let Aname=AData.split('-')
-
             setMember(Aname[0])
             setMemberName(Aname[1])
-            }}>
-           {members.map((e)=>{
+            }}
+            >
+              <option value="Select Researcher" disabled selected>Select Researcher</option>
+           {members.map((e,i)=>{
             return(<option value={e.User_ID+'-'+e.Name}>{e.Name}</option>)
           })}
         </select>
